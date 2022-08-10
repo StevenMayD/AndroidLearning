@@ -1,13 +1,16 @@
 package com.example.androidlearning;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -27,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.recycleview); // RecycleView界面
 
         // 添加表格数据
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1009; i++) {
             Bean bean = new Bean();
-            bean.setName("你好" + i);
+            bean.setName("哈喽呀 " + i);
             listData.add(bean);
         }
 
@@ -48,11 +51,29 @@ public class MainActivity extends AppCompatActivity {
 
         // 通过id拿到UI界面上的RecycleView对象
         RecyclerView recyclerView = findViewById(R.id.rv);
+
         // RecyclerView需要自定义布局（ListView默认就是线性布局）
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        // 线性布局
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+
+        // 网格布局
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3); // spanCount：一行显示格数
+//        recyclerView.setLayoutManager(gridLayoutManager);
+
+        // 瀑布流布局
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, LinearLayout.VERTICAL); // 一行或一列显示3条数据， 垂直方向排布瀑布
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+
         // adapter辅助适配类
         RecycleViewAdapter recycleAdapter = new RecycleViewAdapter(listData, this);
         recyclerView.setAdapter(recycleAdapter);
+        // recycleAdapter对象调用其方法setRecycleItemClickLinstener，此方法的参数是一个接口类型的对象 （而接口对象自然需要实现其内容）
+        recycleAdapter.setRecycleItemClickLinstener(new RecycleViewAdapter.RecycleItemClickListener() {
+            @Override
+            public void itemClick(int position) {
+                Log.e("RecycleView点击了", "onRecycleItemClick: 第" + position + "个");
+            }
+        });
     }
 }
