@@ -10,13 +10,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MyAdapter extends BaseAdapter {
+// ListView的Adapter继承自android包的BaseAdapter
+public class ListViewAdapter extends BaseAdapter {
     // 添加需要适配的属性
     private List<Bean> listData;
     private Context context;
 
     // 添加了属性 需要重写构建方法： Generator快捷键（Ctrl+Enter）Construction， Context意为场景，即外界调用MyAdapter方
-    public MyAdapter(List<Bean> data, Context context) {
+    public ListViewAdapter(List<Bean> data, Context context) {
         this.listData = data;
         this.context = context;
     }
@@ -47,7 +48,7 @@ public class MyAdapter extends BaseAdapter {
         // 复用机制：如果不存在view，才创建它
         if (view == null) {
             viewHolder = new ViewHolder();
-            // 拿到item条目的布局，从外界场景中渲染list_item， 得到参数view
+            // 拿到item条目的布局：                从外界场景中渲染list_item， 得到参数view
             view = LayoutInflater.from(context).inflate(R.layout.list_item, viewGroup, false);
             // 将viewHolder的textView和 item项R.id的textView绑定（这样不会为每一个view调用耗时的findViewById了）
             viewHolder.textView = view.findViewById(R.id.tv);
