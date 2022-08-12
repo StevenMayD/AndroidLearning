@@ -1,4 +1,4 @@
-package com.example.androidlearning;
+package com.example.androidlearning.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import com.example.androidlearning.R;
+import com.example.androidlearning.bean.Bean;
 
 // ListView的Adapter继承自android包的BaseAdapter
 public class ListViewAdapter extends BaseAdapter {

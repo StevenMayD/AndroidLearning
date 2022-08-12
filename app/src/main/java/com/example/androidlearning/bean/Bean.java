@@ -1,4 +1,4 @@
-package com.example.androidlearning;
+package com.example.androidlearning.bean;
 
 import androidx.annotation.NonNull;
 

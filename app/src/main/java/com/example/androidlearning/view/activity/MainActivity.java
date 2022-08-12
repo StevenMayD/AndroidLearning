@@ -1,13 +1,10 @@
-package com.example.androidlearning;
+package com.example.androidlearning.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +15,11 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.androidlearning.R;
+import com.example.androidlearning.adapter.ListViewAdapter;
+import com.example.androidlearning.adapter.RecycleViewAdapter;
+import com.example.androidlearning.bean.Bean;
 
 // 主页面逻辑：MainActivity.java
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.recycleview); // RecycleView界面
             loadRecyclerView();
         } else if (loadSelector == "framebyframe_animation") {
-            setContentView(R.layout.framebyframe_animation); // RecycleView界面
+            setContentView(R.layout.framebyframe_animation); // 逐帧动画界面
             loadFrameByFrameAnimationView();
         }
     }

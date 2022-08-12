@@ -1,4 +1,4 @@
-package com.example.androidlearning;
+package com.example.androidlearning.adapter;
 
 import android.content.Context;
 import android.view.View;
@@ -9,6 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import com.example.androidlearning.R;
+import com.example.androidlearning.bean.Bean;
 
 /* RecyclerView的Adapter继承自androidx包的RecyclerView的Adapter
 *  并且这里有红线报错：自定义的MyViewHolder需要继承自RecyclerView.ViewHolder （鼠标聚焦在红线，可以展示提示，点击可以自动构建方法）
