@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--  透明度的动画
+    从0完全透明 到1完全不透明 整个过程2000毫秒
+  -->
+    <alpha
+        android:fromAlpha="0"
+        android:toAlpha="1"
+        android:duration="2000"
+        />
+</set>

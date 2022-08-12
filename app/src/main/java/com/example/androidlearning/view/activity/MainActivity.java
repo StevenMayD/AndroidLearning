@@ -8,7 +8,10 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     // 数组data用于给ListView加载数据（数组中是Bean类型元素）
     private List<Bean> listData = new ArrayList<>();
     private boolean flag = true;
-    private String loadSelector = "framebyframe_animation"; // 配置主视图加载的 主界面
+    private String loadSelector = "tweened_animation"; // 配置主视图加载的 主界面
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
         } else if (loadSelector == "framebyframe_animation") {
             setContentView(R.layout.framebyframe_animation); // 逐帧动画界面
             loadFrameByFrameAnimationView();
+        } else if (loadSelector == "tweened_animation") {
+            setContentView(R.layout.tweened_animation); // 补间动画界面
+            loadTweenedAnimationView();
         }
     }
 
@@ -116,6 +122,25 @@ public class MainActivity extends AppCompatActivity {
                     anim.stop(); // 动画停止
                 }
                 flag = !flag;
+            }
+        });
+    }
+
+//    加载补间动画界面
+    private void loadTweenedAnimationView() {
+        ImageView imageView = findViewById(R.id.tweened_imageView); // 拿到imageview
+        imageView.setOnClickListener(new View.OnClickListener() {  // 设置imageview点击事件
+            @Override
+            public void onClick(View view) {
+                /* 通过加载xml动画设置文件来创建一个Animation
+                * 注意这里使用MainActivity.this，而不是this。它们本质上是没区别的。但是有时候必须要用MainActivity.this
+                * 比如某个控件 setOnClickListener(); 在括号里面new 一个OnClickListener ，然后在onClick方法里面处理的时候必须要用MainActivity.this 而不能用this。
+                * */
+//                Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.tweened_alpha); // 透明度动画
+//                Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.tweened_rotate); // 旋转动画
+//                Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.tweened_scale); // 缩放动画
+                Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.tweened_translate); // 平移动画
+                imageView.startAnimation(animation); // imageview启动 tweened_alpha设置的动画
             }
         });
     }
