@@ -13,6 +13,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     // 数组data用于给ListView加载数据（数组中是Bean类型元素）
     private List<Bean> listData = new ArrayList<>();
     private boolean flag = true;
-    private String loadSelector = "property_animation"; // 配置主视图加载的 主界面
+    private String loadSelector = "JavaLayout"; // 配置主视图加载的 主界面
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (loadSelector == "property_animation") {
             setContentView(R.layout.tweened_animation);
             loadPropertyAnimator(); // 属性动画
+        } else if (loadSelector == "JavaLayout") {
+            loadJavaLayout(); // Java类文件布局界面
         }
     }
 
@@ -169,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
         // ObjectAnimator 对象(控件)的指定属性的变化（指定属性为Object对象所拥有的属性，包括透明度，旋转，位移等）
         ImageView imageView = findViewById(R.id.tweened_imageView);
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(imageView, "alpha", 1f, 0f); // 让 目标对象imageView 的 透明度属性 从透明到不透明 进行变化
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(imageView, "alpha", 0f, 1f); // 让 目标对象imageView 的 透明度属性 从透明到不透明 进行变化
         objectAnimator.setDuration(4000);
 
         // ObjectAnimator监听器 （必须监听4个方法）
@@ -208,5 +212,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         objectAnimator.start(); // 启动动画
+    }
+
+    // 使用java编码布局界面
+    private void loadJavaLayout() {
+        // 主视图布局
+        LinearLayout linearLayout = new LinearLayout(this);
+        // 设置布局参数LayoutParams: 当使用java布局时，使用LayoutParams来编码布局的尺寸参数集
+        LinearLayout.LayoutParams  mainLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT); // 沾满全屏
+        linearLayout.setLayoutParams(mainLayoutParams);
+
+        // 子视图控件
+        TextView textView = new TextView(this);
+        textView.setText("我是文本");
+        textView.setBackgroundColor(0xffff0000);
+        // 这里的单位默认是像素px
+        LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(300, 300);
+        textView.setLayoutParams(textLayoutParams);
+        // 父视图添加子视图
+        linearLayout.addView(textView);
+
+        // 主页面添加 linearLayout布局
+        setContentView(linearLayout);
     }
 }
