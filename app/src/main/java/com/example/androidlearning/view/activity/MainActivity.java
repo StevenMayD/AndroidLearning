@@ -4,7 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     // 数组data用于给ListView加载数据（数组中是Bean类型元素）
     private List<Bean> listData = new ArrayList<>();
     private boolean flag = true;
-    private String loadSelector = "tweened_animation"; // 配置主视图加载的 主界面
+    private String loadSelector = "property_animation"; // 配置主视图加载的 主界面
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         } else if (loadSelector == "tweened_animation") {
             setContentView(R.layout.tweened_animation); // 补间动画界面
             loadTweenedAnimationView();
+        } else if (loadSelector == "property_animation") {
+            setContentView(R.layout.tweened_animation);
+            loadPropertyAnimator(); // 属性动画
         }
     }
 
@@ -143,5 +151,62 @@ public class MainActivity extends AppCompatActivity {
                 imageView.startAnimation(animation); // imageview启动 tweened_alpha设置的动画
             }
         });
+    }
+
+    // 属性动画
+    private void loadPropertyAnimator(){
+        // ValueAnimator 值的变化
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f,1f); // 让 值0到1的 值属性 进行变化
+        valueAnimator.setDuration(2000);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // 监听值属性变化
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) { // 监听到值更新了后
+                float value = (float) valueAnimator.getAnimatedValue();
+                Log.e("你好", "onAnimationUpdate: " + value);
+            }
+        });
+        valueAnimator.start(); // 启动属性动画
+
+        // ObjectAnimator 对象(控件)的指定属性的变化（指定属性为Object对象所拥有的属性，包括透明度，旋转，位移等）
+        ImageView imageView = findViewById(R.id.tweened_imageView);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(imageView, "alpha", 1f, 0f); // 让 目标对象imageView 的 透明度属性 从透明到不透明 进行变化
+        objectAnimator.setDuration(4000);
+
+        // ObjectAnimator监听器 （必须监听4个方法）
+        objectAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+//            动画开始时候调用
+            public void onAnimationStart(Animator animator) {
+                Log.e("对象属性动画", "onAnimationStart: 开始");
+            }
+
+            @Override
+//            动画结束时候调用
+            public void onAnimationEnd(Animator animator) {
+                Log.e("对象属性动画", "onAnimationEnd: 停止");
+            }
+
+            @Override
+//            动画取消时候调用
+            public void onAnimationCancel(Animator animator) {
+                Log.e("对象属性动画", "onAnimationCancel: 取消");
+            }
+
+            @Override
+//            动画重复执行的时候调用
+            public void onAnimationRepeat(Animator animator) {
+                Log.e("对象属性动画", "onAnimationRepeat: 重复执行");
+            }
+        });
+
+//        监听适配器可以选择监听指定的方法
+        objectAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                Log.e("对象属性动画", "onAnimationStart: 开始2");
+            }
+        });
+        objectAnimator.start(); // 启动动画
     }
 }

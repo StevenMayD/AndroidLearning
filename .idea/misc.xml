@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/framebyframe_animation.xml" value="0.1" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/listview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recycleview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/tweened_animation.xml" value="0.1" />
       </map>
