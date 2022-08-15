@@ -15,7 +15,17 @@
         android:name="com.example.androidlearning.view.fragment.Fragment1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:id="@+id/fragment1"
+        tools:layout="@layout/fragment_1" />
+
+
+    <fragment
+        android:name="com.example.androidlearning.view.fragment.Fragment2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/fragment2"
         tools:layout="@layout/fragment_1" />
 
 </LinearLayout>

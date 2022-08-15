@@ -1,18 +1,17 @@
 package com.example.androidlearning.view.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.androidlearning.R;
 
-public class Fragment1 extends Fragment {
+public class Fragment2 extends Fragment {
     private View root;
     private TextView textView;
     private Button button;
