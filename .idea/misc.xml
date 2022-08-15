@@ -6,11 +6,15 @@
         <entry key="app/src/main/res/drawable/frame.xml" value="0.1435" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.134" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_viewpage.xml" value="0.1" />
         <entry key="app/src/main/res/layout/framebyframe_animation.xml" value="0.1" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/listview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recycleview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/tweened_animation.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/viewpage_layout1.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/viewpage_layout2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/viewpage_layout3.xml" value="0.1" />
       </map>
     </option>
   </component>

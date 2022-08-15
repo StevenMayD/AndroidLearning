@@ -3,6 +3,7 @@ package com.example.androidlearning.view.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.viewpager.widget.ViewPager;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -12,6 +13,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -29,6 +31,7 @@ import java.util.List;
 import com.example.androidlearning.R;
 import com.example.androidlearning.adapter.ListViewAdapter;
 import com.example.androidlearning.adapter.RecycleViewAdapter;
+import com.example.androidlearning.adapter.ViewPageAdapter;
 import com.example.androidlearning.bean.Bean;
 
 // 主页面逻辑：MainActivity.java
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     // 数组data用于给ListView加载数据（数组中是Bean类型元素）
     private List<Bean> listData = new ArrayList<>();
     private boolean flag = true;
-    private String loadSelector = "JavaLayout"; // 配置主视图加载的 主界面
+    private String loadSelector = "viewpage"; // 配置主视图加载的 主界面
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
             loadPropertyAnimator(); // 属性动画
         } else if (loadSelector == "JavaLayout") {
             loadJavaLayout(); // Java类文件布局界面
+        } else if (loadSelector == "viewpage") {
+            setContentView(R.layout.activity_viewpage);
+            loadViewPage(); // 属性动画
         }
     }
 
@@ -234,5 +240,23 @@ public class MainActivity extends AppCompatActivity {
 
         // 主页面添加 linearLayout布局
         setContentView(linearLayout);
+    }
+
+    // 加载viewpage界面
+    private void loadViewPage() {
+        LayoutInflater layoutInflater = getLayoutInflater().from(this); // 拿到当前布局的渲染器
+        View view1 = layoutInflater.inflate(R.layout.layout_viewpage1, null); // 当前布局进行渲染子布局界面，并拿到子布局界面
+        View view2 = layoutInflater.inflate(R.layout.layout_viewpage2, null);
+        View view3 = layoutInflater.inflate(R.layout.layout_viewpage3, null);
+
+        List<View> viewList = new ArrayList<>();
+        viewList.add(view1); // 子界面加入集合
+        viewList.add(view2);
+        viewList.add(view3);
+
+        ViewPager viewPager = findViewById(R.id.viewpage);
+        // viewpage的布局填充需要用到适配器adapter
+        ViewPageAdapter viewPageAdapter = new ViewPageAdapter(viewList);
+        viewPager.setAdapter(viewPageAdapter);
     }
 }
