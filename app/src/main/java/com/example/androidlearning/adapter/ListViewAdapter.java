@@ -52,7 +52,7 @@ public class ListViewAdapter extends BaseAdapter {
         if (view == null) {
             viewHolder = new ViewHolder();
             // 拿到item条目的布局：                从外界场景中渲染list_item， 得到参数view
-            view = LayoutInflater.from(context).inflate(R.layout.list_item, viewGroup, false);
+            view = LayoutInflater.from(context).inflate(R.layout.layout_list_item, viewGroup, false);
             // 将viewHolder的textView和 item项R.id的textView绑定（这样不会为每一个view调用耗时的findViewById了）
             viewHolder.textView = view.findViewById(R.id.tv);
             view.setTag(viewHolder); // 将viewHolder暂存到view的tag属性 （安卓的视图类自带一个tag属性，可以存放Object任意类型对象）

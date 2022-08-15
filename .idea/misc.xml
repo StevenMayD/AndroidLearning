@@ -5,9 +5,11 @@
       <map>
         <entry key="app/src/main/res/drawable/frame.xml" value="0.1435" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.134" />
+        <entry key="app/src/main/res/layout/activity_listview.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_viewpage.xml" value="0.1" />
         <entry key="app/src/main/res/layout/framebyframe_animation.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/layout_viewpage1.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/listview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recycleview.xml" value="0.1" />

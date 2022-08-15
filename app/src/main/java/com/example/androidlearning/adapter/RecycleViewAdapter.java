@@ -30,7 +30,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // 拿到item条目的布局：              用外界场景中list_item渲染一个View 得到参数view
-        View view = View.inflate(context, R.layout.list_item, null);
+        View view = View.inflate(context, R.layout.layout_list_item, null);
         // RecyclerView里 是通过将view传递给MyViewHolder处理view，来返回
         return new MyViewHolder(view);
     }

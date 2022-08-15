@@ -10,7 +10,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.drawable.AnimationDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,19 +45,19 @@ public class MainActivity extends AppCompatActivity {
 
         if (loadSelector == "listview") {
             // MainActivity主页面逻辑Java 关联 主页面UI布局layout
-            setContentView(R.layout.listview); // ListView界面
+            setContentView(R.layout.activity_listview); // ListView界面
             loadListView();
         } else if (loadSelector == "recycleview") {
-            setContentView(R.layout.recycleview); // RecycleView界面
+            setContentView(R.layout.activity_recycleview); // RecycleView界面
             loadRecyclerView();
         } else if (loadSelector == "framebyframe_animation") {
-            setContentView(R.layout.framebyframe_animation); // 逐帧动画界面
+            setContentView(R.layout.activity_framebyframe_animation); // 逐帧动画界面
             loadFrameByFrameAnimationView();
         } else if (loadSelector == "tweened_animation") {
-            setContentView(R.layout.tweened_animation); // 补间动画界面
+            setContentView(R.layout.activity_tweened_animation); // 补间动画界面
             loadTweenedAnimationView();
         } else if (loadSelector == "property_animation") {
-            setContentView(R.layout.tweened_animation);
+            setContentView(R.layout.activity_tweened_animation);
             loadPropertyAnimator(); // 属性动画
         } else if (loadSelector == "JavaLayout") {
             loadJavaLayout(); // Java类文件布局界面
