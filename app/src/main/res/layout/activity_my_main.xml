@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.activity.MyMainActivity">
+
+    <!--  1、宿主activity添加fragment控件；
+          2、将fragment控件绑定到自定义的view中的Fragment1类；
+     且添加fragment控件必须加id，否则运行崩溃(这里fragment的id是必须有的，不同于其他控件的id只是为了标识获取)
+    -->
+    <fragment
+        android:name="com.example.androidlearning.view.fragment.Fragment1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment1"
+        tools:layout="@layout/fragment_1" />
+
+</LinearLayout>
