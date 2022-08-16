@@ -16,18 +16,19 @@
         <activity
             android:name=".view.activity.FragmentTransactionActivity"
             android:exported="true"
-            android:label="FragmentActivity2"
-            android:theme="@style/Theme.AndroidLearning.NoActionBar">
+            android:label="FragmentTransactionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- 这里自定义的MyMainActivity 目录为.view.activity.MyMainActivity -->
+        <!-- 这里自定义的MyMainActivity 目录为.view.activity.MyMainActivity
+            android:theme="@style/Theme.AndroidLearning.NoActionBar" 为无导航设置
+        -->
         <activity
             android:name=".view.activity.FragmentActivity"
             android:exported="true"
-            android:label="@string/title_activity_my_main"
+            android:label="FragmentActivity"
             android:theme="@style/Theme.AndroidLearning.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
