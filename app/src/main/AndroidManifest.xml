@@ -25,7 +25,7 @@
         </activity>
         <!-- 这里自定义的MyMainActivity 目录为.view.activity.MyMainActivity -->
         <activity
-            android:name=".view.activity.MyMainActivity"
+            android:name=".view.activity.FragmentActivity"
             android:exported="true"
             android:label="@string/title_activity_my_main"
             android:theme="@style/Theme.AndroidLearning.NoActionBar">
