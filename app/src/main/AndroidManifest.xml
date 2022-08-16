@@ -13,7 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidLearning"
         tools:targetApi="31">
-        <!--   这里自定义的MyMainActivity 目录为.view.activity.MyMainActivity     -->
+        <activity
+            android:name=".view.activity.FragmentTransactionActivity"
+            android:exported="true"
+            android:label="FragmentActivity2"
+            android:theme="@style/Theme.AndroidLearning.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- 这里自定义的MyMainActivity 目录为.view.activity.MyMainActivity -->
         <activity
             android:name=".view.activity.MyMainActivity"
             android:exported="true"
@@ -21,8 +31,8 @@
             android:theme="@style/Theme.AndroidLearning.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <!--  创建自定义的MyMainActivity时，勾选了Launch Activity，这里就会是LAUNCHER -->
-                <category android:name="android.intent.category.LAUNCHER" />
+                <!-- 创建自定义的MyMainActivity时，勾选了Launch Activity，这里就会是LAUNCHER -->
+                <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
         <activity
@@ -30,7 +40,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <!--  自定义的MyMainActivity为Launch，则原先的MainActivity不能再是LAUNCHER，否则桌面会出现两个app（MyMainActivity和AndroidLearning）  -->
+                <!-- 自定义的MyMainActivity为Launch，则原先的MainActivity不能再是LAUNCHER，否则桌面会出现两个app（MyMainActivity和AndroidLearning） -->
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>

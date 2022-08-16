@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.activity.FragmentTransactionActivity">
+
+    <Button
+        android:id="@+id/btn_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="change"
+        />
+    <Button
+        android:id="@+id/btn_replace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="replace"
+        />
+
+    <!--  添加FrameLayout控件 可在代码中动态指定和修改切换fragment
+            而不是添加fragment控件 指定静态固定的fragment
+    -->
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/teal_200"
+        />
+
+</LinearLayout>

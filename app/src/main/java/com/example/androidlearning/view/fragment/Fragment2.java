@@ -28,7 +28,7 @@ public class Fragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (root == null) {
-            root = inflater.inflate(R.layout.fragment_1, container, false);
+            root = inflater.inflate(R.layout.fragment_2, container, false);
         }
         // fragment是小activity，同样可以响应各种点击事件
         textView = root.findViewById(R.id.fagment_textview);
@@ -36,7 +36,7 @@ public class Fragment2 extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.setText("是的，我很好，你呢？");
+                textView.setText("是的，我很好，你呢2？");
             }
         });
         return root;

@@ -11,11 +11,11 @@
         android:id="@+id/fagment_textview"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:text="空白的fragment_1" />
+        android:text="空白的fragment_2" />
 
     <Button
         android:id="@+id/fagment_btn"
-        android:text="你好么?"
+        android:text="你好么2?"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
 </LinearLayout>
