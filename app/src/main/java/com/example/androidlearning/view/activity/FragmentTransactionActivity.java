@@ -31,7 +31,14 @@ public class FragmentTransactionActivity extends AppCompatActivity implements Vi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_change:
-                replaceFragment(new Fragment1());
+//                replaceFragment(new Fragment1());
+                // Bundle保存参数来自activity的数据
+                Bundle bundle = new Bundle();
+                bundle.putString("message", "来自activity的传参");
+                Fragment fragment1 = new Fragment1();
+                // Fragment设置参数
+                fragment1.setArguments(bundle);
+                replaceFragment(fragment1);
                 break;
             case R.id.btn_replace:
                 replaceFragment(new Fragment2());

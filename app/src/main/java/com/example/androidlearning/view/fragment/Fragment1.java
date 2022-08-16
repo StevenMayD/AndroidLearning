@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,9 @@ public class Fragment1 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Bundle bundle = this.getArguments(); // 这里getArguments：获取的就是activity传入的argument
+        String string = bundle.getString("message");
+        Log.d("activity给fragment传参", "onCreate: " + string); // Log.d打印debug日志
     }
 
     @Override
