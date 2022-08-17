@@ -15,7 +15,7 @@
 
     <Button
         android:id="@+id/fagment_btn"
-        android:text="你好么?"
+        android:text="activity向fragment传值"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
 </LinearLayout>
