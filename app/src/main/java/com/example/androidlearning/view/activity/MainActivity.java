@@ -31,6 +31,7 @@ import com.example.androidlearning.R;
 import com.example.androidlearning.adapter.ListViewAdapter;
 import com.example.androidlearning.adapter.RecycleViewAdapter;
 import com.example.androidlearning.adapter.ViewPageAdapter;
+import com.example.androidlearning.adapter.ViewPager2Adapter;
 import com.example.androidlearning.bean.Bean;
 
 // 主页面逻辑：MainActivity.java

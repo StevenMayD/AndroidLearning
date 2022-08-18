@@ -14,15 +14,27 @@
         android:theme="@style/Theme.AndroidLearning"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.ViewPager2Activity"
+            android:exported="true"
+            android:label="@string/title_activity_view_pager2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".view.activity.FragmentTransactionActivity"
             android:exported="true"
             android:label="FragmentTransactionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+
+                <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
-        <!-- 这里自定义的MyMainActivity 目录为.view.activity.MyMainActivity
+        <!--
+            这里自定义的MyMainActivity 目录为.view.activity.MyMainActivity
             android:theme="@style/Theme.AndroidLearning.NoActionBar" 为无导航设置
         -->
         <activity

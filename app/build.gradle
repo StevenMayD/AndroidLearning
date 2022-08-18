@@ -43,4 +43,6 @@ dependencies {
 
     // 添加 RecycleView的依赖包（使用RecycleView前 需要导包；修改了.gradle文件需要点击"小鲨鱼"同步工程，才能运行）
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    // 添加viewpager2的依赖包
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }
