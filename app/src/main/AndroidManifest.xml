@@ -17,10 +17,11 @@
             android:name=".view.activity.MockWechatActivity"
             android:exported="true"
             android:label="@string/title_activity_mock_wechat">
+            <!--  激活默认的Activity的意图 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
         <activity
@@ -58,13 +59,16 @@
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
+        <!--    任意创建的一个java类，再添加拓展自系统activity后 extends AppCompatActivity，才能成为activity组件
+                并且组件必须在清单文件里注册才能使用
+        -->
         <activity
             android:name=".view.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- 自定义的MyMainActivity为Launch，则原先的MainActivity不能再是LAUNCHER，否则桌面会出现两个app（MyMainActivity和AndroidLearning） -->
-                <category android:name="android.intent.category.LAUNCHER_No" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

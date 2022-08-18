@@ -9,6 +9,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     // 数组data用于给ListView加载数据（数组中是Bean类型元素）
     private List<Bean> listData = new ArrayList<>();
     private boolean flag = true;
-    private String loadSelector = "viewpage"; // 配置主视图加载的 主界面
+    private String loadSelector = "listview"; // 配置主视图加载的 主界面
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.e("点击了", "onItemClick: 第" + i + "行" );
+
+                // activity组件间跳转：从当前MainActivity 跳转至 MockWechatActivity
+                startActivity(new Intent(MainActivity.this, MockWechatActivity.class));
             }
         });
     }
