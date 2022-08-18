@@ -7,11 +7,14 @@
     android:orientation="vertical"
     tools:context=".view.activity.MockWechatActivity">
 
+<!--  页面整体包含2大部分  -->
+<!--  1、页面主体部分：为viewpager  -->
     <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/id_viewpager"
         />
-
+<!--  2、tab部分：加载另外一个layout  -->
+    <include layout="@layout/layout_wechat_tab" />
 </LinearLayout>

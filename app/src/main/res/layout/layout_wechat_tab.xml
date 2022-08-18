@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:orientation="horizontal"
+    android:background="@color/gray"
+    >
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/id_tab_wechat"
+        >
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/tab_imageView_wechat"
+            android:background="@drawable/tab_wechat"
+            />
+        <!--   控件的重心gravity为android:gravity     -->
+        <TextView
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_wechat"
+            android:gravity="center"
+            android:text="微信"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/id_tab_addressBook"
+        >
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/tab_imageView_addressBook"
+            android:background="@drawable/tab_address_book"
+            />
+        <!--   控件的重心gravity为android:gravity     -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_addressBook"
+            android:gravity="center"
+            android:text="通讯录"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/id_tab_find"
+        >
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/tab_imageView_find"
+            android:background="@drawable/tab_find"
+            />
+        <!--   控件的重心gravity为android:gravity     -->
+        <TextView
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_find"
+            android:gravity="center"
+            android:text="发现"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/id_tab_mine"
+        >
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/tab_imageView_mine"
+            android:background="@drawable/tab_mine"
+            />
+        <!--   控件的重心gravity为android:gravity     -->
+        <TextView
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_mine"
+            android:gravity="center"
+            android:text="我"
+            />
+    </LinearLayout>
+</LinearLayout>

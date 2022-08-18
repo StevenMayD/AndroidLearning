@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <!--  使用到的颜色一般配置到 colors.xml文件中 统一使用 -->
     <color name="red">#ff4411</color>
+    <color name="gray">#E0E0E0</color>
 </resources>
