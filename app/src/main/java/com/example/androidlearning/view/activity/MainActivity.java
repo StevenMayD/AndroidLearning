@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Activity生命周期", "onCreate:");
 
         if (loadSelector == "listview") {
             // MainActivity主页面逻辑Java 关联 主页面UI布局layout
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("点击了", "onItemClick: 第" + i + "行" );
 
                 // activity组件间跳转：从当前MainActivity 跳转至 MockWechatActivity
-                startActivity(new Intent(MainActivity.this, MockWechatActivity.class));
+                startActivity(new Intent(MainActivity.this, ViewPager2Activity.class));
             }
         });
     }
@@ -262,5 +263,51 @@ public class MainActivity extends AppCompatActivity {
         // viewpage的布局填充需要用到适配器adapter
         ViewPageAdapter viewPageAdapter = new ViewPageAdapter(viewList);
         viewPager.setAdapter(viewPageAdapter);
+    }
+
+
+
+    // 补全activity所有生命周期方法
+
+    @Override
+    // 重新启动
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("Activity生命周期", "onRestart: ");
+    }
+
+    @Override
+//    画面启动渲染
+    protected void onStart() {
+        super.onStart();
+        Log.d("Activity生命周期", "onStart: ");
+    }
+
+    @Override
+    // 画面展示渲染完成，画面可见
+    protected void onResume() {
+        super.onResume();
+        Log.d("Activity生命周期", "onResume: ");
+    }
+
+    @Override
+    // 画面被暂停 画面不可见
+    protected void onPause() {
+        super.onPause();
+        Log.d("Activity生命周期", "onPause: ");
+    }
+
+    @Override
+    // 画面被停止 画面相关工作全停止
+    protected void onStop() {
+        super.onStop();
+        Log.d("Activity生命周期", "onStop: ");
+    }
+
+    @Override
+    // 画面被销毁
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Activity生命周期", "onDestroy: ");
     }
 }
