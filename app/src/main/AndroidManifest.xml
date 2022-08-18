@@ -14,13 +14,23 @@
         android:theme="@style/Theme.AndroidLearning"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.MockWechatActivity"
+            android:exported="true"
+            android:label="@string/title_activity_mock_wechat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".view.activity.ViewPager2Activity"
             android:exported="true"
             android:label="@string/title_activity_view_pager2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
         <activity
