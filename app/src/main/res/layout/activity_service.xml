@@ -7,16 +7,60 @@
     android:orientation="vertical"
     tools:context=".view.activity.ServiceActivity">
 
-    <Button
+    <!--  startService 对应 stopService  -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="startService"
-        android:onClick="startService"
-        />
-    <Button
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="startService 对应 stopService"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="startService"
+                android:onClick="startService"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="stopService"
+                android:onClick="stopService"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--  bindService 对应 unBindService  -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="stopService"
-        android:onClick="stopService"
-        />
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="bindService 对应 unBindService"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="bindService"
+                android:onClick="bindService"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="unbindService"
+                android:onClick="unbindService"
+                />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

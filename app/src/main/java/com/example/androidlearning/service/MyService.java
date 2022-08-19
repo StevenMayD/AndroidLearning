@@ -31,4 +31,17 @@ public class MyService extends Service {
         super.onDestroy();
         Log.d("MyService生命周期", "onDestroy: ");
     }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        Log.d("MyService生命周期", "onBind: ");
+        return null;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.d("MyService生命周期", "onUnbind: ");
+        return super.onUnbind(intent);
+    }
 }
