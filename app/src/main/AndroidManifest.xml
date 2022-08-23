@@ -14,13 +14,23 @@
         android:theme="@style/Theme.AndroidLearning"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.ReceiverActivity"
+            android:exported="true"
+            android:label="@string/title_activity_receiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".view.activity.ServiceActivity"
             android:exported="true"
             android:label="@string/title_activity_service">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
         <activity
@@ -86,6 +96,15 @@
 
         <!-- 服务也是组件 必须在清单文件里注册 -->
         <service android:name=".service.MyService" />
+
+        <!-- 第一步： 静态注册广播接收者 （在清单文件里注册 并且需要标记action） -->
+        <receiver android:name=".receiver.CustomReceiver" android:exported="true">
+            <!-- 过滤 -->
+            <intent-filter>
+                <!-- 标记name 可以随便定义（这就是发送广播的标记） -->
+                <action android:name="com.learning.receiver_flag_" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -17,4 +17,5 @@
     <string name="hello_viewpager2item">hello viewPager2item</string>
     <string name="title_activity_mock_wechat">MockWechatActivity</string>
     <string name="title_activity_service">ServiceActivity</string>
+    <string name="title_activity_receiver">ReceiverActivity</string>
 </resources>
