@@ -14,6 +14,6 @@ public class CustomReceiver extends BroadcastReceiver {
     @Override
 //   第三步： 接收者 接收广播
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "CustomReceiver onReceive: 已接收到广播");
+        Log.d(TAG, "CustomReceiver onReceive: 已接收到静态广播");
     }
 }
