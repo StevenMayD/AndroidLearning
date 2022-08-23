@@ -98,11 +98,11 @@
         <service android:name=".service.MyService" />
 
         <!-- 第一步： 静态注册广播接收者 （在清单文件里注册 并且需要标记action） -->
-        <receiver android:name=".receiver.CustomReceiver" android:exported="true">
+        <receiver android:name=".receiver.StaticReceiver" android:exported="true">
             <!-- 过滤 -->
             <intent-filter>
                 <!-- 标记name 可以随便定义（这就是发送广播的标记） -->
-                <action android:name="com.learning.receiver_flag_" />
+                <action android:name="com.learning.receiver_static_" />
             </intent-filter>
         </receiver>
     </application>

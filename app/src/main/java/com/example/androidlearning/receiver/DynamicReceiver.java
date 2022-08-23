@@ -7,11 +7,11 @@ import android.util.Log;
 
 // 动态注册广播接收者
 // (动态)第一步：定义广播接收者（Receiver）
-public class UpdateIpSelectCity extends BroadcastReceiver {
-    private static final String TAG = UpdateIpSelectCity.class.getSimpleName();
+public class DynamicReceiver extends BroadcastReceiver {
+    private static final String TAG = DynamicReceiver.class.getSimpleName();
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "UpdateIpSelectCity onReceive: 已收到动态注册的广播");
+        Log.d(TAG, "DynamicReceiver onReceive: 已收到动态注册的广播");
     }
 }
