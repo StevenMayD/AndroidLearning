@@ -45,4 +45,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     // 添加viewpager2的依赖包
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    // 高德3D地图 引入依赖 (gradle集成SDK的方式可能需要处理依赖冲突，初学者我们 引入AAR包的依赖的方式)
+//    implementation 'com.amap.api:3dmap:latest.integration' // gradle集成SDK的方式
+    implementation(fileTree("libs"))  // 引入AAR包的依赖的方式
 }
