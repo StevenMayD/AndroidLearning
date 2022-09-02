@@ -3,6 +3,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/Users/dongshuaiwen/Desktop/董帅文/工程/git/安卓项目/安卓课程学习项目/app/AndroidLearn.jks')
+            storePassword 'qwer1234'
+            keyAlias 'AndroidLearn'
+            keyPassword 'qwer1234'
+        }
+        release {
+            storeFile file('/Users/dongshuaiwen/Desktop/董帅文/工程/git/安卓项目/安卓课程学习项目/app/AndroidLearn.jks')
+            storePassword 'qwer1234'
+            keyAlias 'AndroidLearn'
+            keyPassword 'qwer1234'
+        }
+    }
     compileSdk 32
 
     defaultConfig {
@@ -19,6 +33,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
     compileOptions {

@@ -15,8 +15,10 @@
         <entry key="app/src/main/res/layout/activity_fragment_transaction.xml" value="0.34098360655737703" />
         <entry key="app/src/main/res/layout/activity_listview.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_map.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_mock_wechat.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_my_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_receiver.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_recycleview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_service.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_tweened_animation.xml" value="0.1" />

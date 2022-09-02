@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             loadJavaLayout(); // Java类文件布局界面
         } else if (loadSelector == "viewpage") {
             setContentView(R.layout.activity_viewpage);
-            loadViewPage(); // 属性动画
+            loadViewPage(); // 滚动界面viewpage
         }
     }
 
