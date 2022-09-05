@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/layout/activity_map.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_mock_wechat.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_my_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_okhttp.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_receiver.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_recycleview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_service.xml" value="0.25" />

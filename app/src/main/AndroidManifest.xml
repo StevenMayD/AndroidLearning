@@ -28,7 +28,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidLearning"
         tools:targetApi="31">
-        <!--    地图    -->
+        <activity
+            android:name=".view.activity.OKhttpActivity"
+            android:exported="true"
+            android:label="@string/title_activity_okhttp"
+            android:theme="@style/Theme.AndroidLearning.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- 地图 -->
         <activity
             android:name=".view.activity.MapActivity"
             android:exported="true"
@@ -39,7 +50,7 @@
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
-        <!--    广播接收者    -->
+        <!-- 广播接收者 -->
         <activity
             android:name=".view.activity.ReceiverActivity"
             android:exported="true"
@@ -50,7 +61,7 @@
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
-        <!--    服务组件    -->
+        <!-- 服务组件 -->
         <activity
             android:name=".view.activity.ServiceActivity"
             android:exported="true"
@@ -61,7 +72,7 @@
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
-        <!--    仿微信主界面    -->
+        <!-- 仿微信主界面 -->
         <activity
             android:name=".view.activity.MockWechatActivity"
             android:exported="true"
@@ -74,7 +85,7 @@
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
-        <!--    滚动视图ViewPager2界面    -->
+        <!-- 滚动视图ViewPager2界面 -->
         <activity
             android:name=".view.activity.ViewPager2Activity"
             android:exported="true"
@@ -85,7 +96,7 @@
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
-        <!--    Fragment的动态替换与管理    -->
+        <!-- Fragment的动态替换与管理 -->
         <activity
             android:name=".view.activity.FragmentTransactionActivity"
             android:exported="true"
@@ -100,7 +111,7 @@
             这里自定义的MyMainActivity 目录为.view.activity.MyMainActivity
             android:theme="@style/Theme.AndroidLearning.NoActionBar" 为无导航设置
         -->
-        <!--    Fragment片段    -->
+        <!-- Fragment片段 -->
         <activity
             android:name=".view.activity.FragmentActivity"
             android:exported="true"
@@ -116,14 +127,14 @@
     任意创建的一个java类，再添加拓展自系统activity后 extends AppCompatActivity，才能成为activity组件
                 并且组件必须在清单文件里注册才能使用
         -->
-        <!--    主视图：包含ListView界面、RecycleView界面、逐帧动画界面、补间动画界面、属性动画、Java类文件布局界面、滚动界面viewpage   -->
+        <!-- 主视图：包含ListView界面、RecycleView界面、逐帧动画界面、补间动画界面、属性动画、Java类文件布局界面、滚动界面viewpage -->
         <activity
             android:name=".view.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- 自定义的MyMainActivity为Launch，则原先的MainActivity不能再是LAUNCHER，否则桌面会出现两个app（MyMainActivity和AndroidLearning） -->
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
 
@@ -131,7 +142,9 @@
         <service android:name=".service.MyService" />
 
         <!-- 第一步： 静态注册广播接收者 （在清单文件里注册 并且需要标记action） -->
-        <receiver android:name=".receiver.StaticReceiver" android:exported="true">
+        <receiver
+            android:name=".receiver.StaticReceiver"
+            android:exported="true">
             <!-- 过滤 -->
             <intent-filter>
                 <!-- 标记name 可以随便定义（这就是发送广播的标记） -->
@@ -139,7 +152,7 @@
             </intent-filter>
         </receiver>
 
-        <!--    设置高德Key    -->
+        <!-- 设置高德Key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="55daf6feb2aef302008fe56f23413ca1" />
