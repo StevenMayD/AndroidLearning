@@ -28,6 +28,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.androidlearning.R;
 import com.example.androidlearning.adapter.ListViewAdapter;
 import com.example.androidlearning.adapter.RecycleViewAdapter;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     // 数组data用于给ListView加载数据（数组中是Bean类型元素）
     private List<Bean> listData = new ArrayList<>();
     private boolean flag = true;
-    private String loadSelector = "listview"; // 配置主视图加载的 主界面
+    private String loadSelector = "glide"; // 配置主视图加载的 主界面
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +65,13 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_tweened_animation);
             loadPropertyAnimator(); // 属性动画
         } else if (loadSelector == "JavaLayout") {
-            loadJavaLayout(); // Java类文件布局界面
+            loadJavaLayout(); // Java类文件布局界面layout
         } else if (loadSelector == "viewpage") {
             setContentView(R.layout.activity_viewpage);
             loadViewPage(); // 滚动界面viewpage
+        } else if (loadSelector == "glide") {
+            setContentView(R.layout.activity_glide);
+            loadGlide(); // Glide基本使用
         }
     }
 
@@ -265,6 +270,29 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPageAdapter);
     }
 
+    // Glide基本使用
+    private void loadGlide() {
+        /* 请求配置：可用于配置占位图
+        *  placeholder：正在请求图片的时候展示的图片
+        *  error：如果请求失败的时候展示的图片(如果没有设置，还是展示placeholder的占位符)
+        *  fallback：如果请求的url/model为null的时候展示的图片(如果没有设置，还是展示placeholder的占位符)
+        * */
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.wechat_normal)
+                .error(R.drawable.address_book_normal)
+                .fallback(R.drawable.find_normal)
+                .override(100, 100);
+
+        ImageView imageView = findViewById(R.id.imageView);
+        /* with传递一个上下文this、一个view、或者fragment都行，with传递的对象，图片Image的内存生命周期，就会跟这个对象的生命周期绑定在一起
+        *  load的内容 可以是工程里的R.资源、或者文件对象、或者是https网络资源(并配置网络权限<uses-permission android:name="android.permission.INTERNET" />)
+        *  这里配置了RequestOptions占位图，没看到效果？ 因为glide将加载过的图片，缓存在本地了
+        * */
+        Glide.with(this)
+                .load("https://cdn.wwads.cn/creatives/0eLUA9e7Yr1FpZfqI1h2d3NBbxdbzBizF68j3AYQ_dongshjuaiwen.png")
+                .apply(requestOptions)
+                .into(imageView);
+    }
 
 
     // 补全activity所有生命周期方法

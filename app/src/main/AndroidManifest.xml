@@ -36,7 +36,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
         </activity>
         <!--    广播接收者    -->
@@ -123,7 +123,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- 自定义的MyMainActivity为Launch，则原先的MainActivity不能再是LAUNCHER，否则桌面会出现两个app（MyMainActivity和AndroidLearning） -->
-                <category android:name="android.intent.category.LAUNCHER_No" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
