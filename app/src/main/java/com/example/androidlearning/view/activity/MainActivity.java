@@ -44,6 +44,7 @@ import com.example.androidlearning.adapter.RecycleViewAdapter;
 import com.example.androidlearning.adapter.ViewPageAdapter;
 import com.example.androidlearning.adapter.ViewPager2Adapter;
 import com.example.androidlearning.bean.Bean;
+import com.example.androidlearning.tools.GlideApp;
 
 // 主页面逻辑：MainActivity.java
 public class MainActivity extends AppCompatActivity {
@@ -302,12 +303,31 @@ public class MainActivity extends AppCompatActivity {
         *  这里配置了RequestOptions占位图，没看到效果？ 因为glide将加载过的图片，缓存在本地了
         *  如果加载图片使用了Glide.with(this).asBitmap()， 那么过度动画就得使用 .transition(BitmapTransitionOptions)
         * */
-        Glide.with(this)
+//        Glide.with(this)
+//                .load("https://bkimg.cdn.bcebos.com/pic/50da81cb39dbb6fdabee07c50224ab18962b3798?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2U4MA==,g_7,xp_5,yp_5/format,f_auto")
+//                .apply(requestOptions) // 占位图片
+//                .transition(DrawableTransitionOptions.withCrossFade(factory)) // 过度动画
+//                .transform(new GranularRoundedCorners(30, 80, 80, 30)) // 变换（圆角：CircleCrop()，指定统一角度：RoundedCorners(30), 旋转：Rotate(90)）
+//                .into(imageView);
+
+//        // GlideApp.简单的链式调用 取代上面的创建对象RequestOptions的调用方式
+//        GlideApp.with(this)
+//                .load("https://bkimg.cdn.bcebos.com/pic/50da81cb39dbb6fdabee07c50224ab18962b3798?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2U4MA==,g_7,xp_5,yp_5/format,f_auto")
+//                .placeholder(R.drawable.wechat_normal)
+//                .error(R.drawable.address_book_normal)
+//                .fallback(R.drawable.find_normal)
+//                .override(100, 100)
+//                .transition(DrawableTransitionOptions.withCrossFade(factory)) // 过度动画
+//                .transform(new GranularRoundedCorners(30, 80, 80, 30)) // 变换（圆角：CircleCrop()，指定统一角度：RoundedCorners(30), 旋转：Rotate(90)）
+//                .into(imageView);
+
+        // glide拓展GlideApp. 取代上面的 繁琐的链式调用
+        GlideApp.with(this)
                 .load("https://bkimg.cdn.bcebos.com/pic/50da81cb39dbb6fdabee07c50224ab18962b3798?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2U4MA==,g_7,xp_5,yp_5/format,f_auto")
-                .apply(requestOptions) // 占位图片
+                .defaultImg()
                 .transition(DrawableTransitionOptions.withCrossFade(factory)) // 过度动画
-                .transform(new GranularRoundedCorners(30, 80, 80, 30)) // 变换（圆角：CircleCrop()，指定统一角度：RoundedCorners(30), 旋转：Rotate(90)）
                 .into(imageView);
+
     }
 
 
