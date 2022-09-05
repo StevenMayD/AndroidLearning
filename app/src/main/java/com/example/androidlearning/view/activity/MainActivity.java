@@ -28,8 +28,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amap.api.maps.model.Circle;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
+import com.bumptech.glide.load.resource.bitmap.Rotate;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.example.androidlearning.R;
 import com.example.androidlearning.adapter.ListViewAdapter;
 import com.example.androidlearning.adapter.RecycleViewAdapter;
@@ -272,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Glide基本使用
     private void loadGlide() {
-        /* 请求配置：可用于配置占位图
+        /* 请求配置类：可用于配置占位图
         *  placeholder：正在请求图片的时候展示的图片
         *  error：如果请求失败的时候展示的图片(如果没有设置，还是展示placeholder的占位符)
         *  fallback：如果请求的url/model为null的时候展示的图片(如果没有设置，还是展示placeholder的占位符)
@@ -283,14 +291,22 @@ public class MainActivity extends AppCompatActivity {
                 .fallback(R.drawable.find_normal)
                 .override(100, 100);
 
+        /* 过度动画类 - 交叉淡入: 图片加载效果 有占位图 过度到 目标图
+            注意：为了提升性能，在使用Glide向ListView，GridView或者RecycleView 加载图片是避免使用过度动画
+        * */
+        DrawableCrossFadeFactory factory = new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
+
         ImageView imageView = findViewById(R.id.imageView);
         /* with传递一个上下文this、一个view、或者fragment都行，with传递的对象，图片Image的内存生命周期，就会跟这个对象的生命周期绑定在一起
         *  load的内容 可以是工程里的R.资源、或者文件对象、或者是https网络资源(并配置网络权限<uses-permission android:name="android.permission.INTERNET" />)
         *  这里配置了RequestOptions占位图，没看到效果？ 因为glide将加载过的图片，缓存在本地了
+        *  如果加载图片使用了Glide.with(this).asBitmap()， 那么过度动画就得使用 .transition(BitmapTransitionOptions)
         * */
         Glide.with(this)
-                .load("https://cdn.wwads.cn/creatives/0eLUA9e7Yr1FpZfqI1h2d3NBbxdbzBizF68j3AYQ_dongshjuaiwen.png")
-                .apply(requestOptions)
+                .load("https://bkimg.cdn.bcebos.com/pic/50da81cb39dbb6fdabee07c50224ab18962b3798?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2U4MA==,g_7,xp_5,yp_5/format,f_auto")
+                .apply(requestOptions) // 占位图片
+                .transition(DrawableTransitionOptions.withCrossFade(factory)) // 过度动画
+                .transform(new GranularRoundedCorners(30, 80, 80, 30)) // 变换（圆角：CircleCrop()，指定统一角度：RoundedCorners(30), 旋转：Rotate(90)）
                 .into(imageView);
     }
 
