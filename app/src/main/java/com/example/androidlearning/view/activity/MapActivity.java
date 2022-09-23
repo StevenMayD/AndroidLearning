@@ -31,6 +31,7 @@ import com.amap.api.location.AMapLocation; // 定位
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.example.androidlearning.utils.GPSUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -58,6 +59,7 @@ public class MapActivity extends AppCompatActivity implements AMapLocationListen
         MapsInitializer.updatePrivacyAgree(this, true);
         MapsInitializer.updatePrivacyShow(this, true, true);
 
+        if (GPSUtils.isOPen(this.getApplicationContext())) {
         /** 地图（通过高德api） **/
         createMapViewByGaoDe(savedInstanceState);
 
@@ -66,6 +68,9 @@ public class MapActivity extends AppCompatActivity implements AMapLocationListen
 
         /** 定位（通过安卓系统api） **/
         getLocationBySystem();
+        } else {
+            GPSUtils.openGPS(this);
+        }
     }
 
     // 创建地图（通过高德api）
@@ -318,18 +323,24 @@ public class MapActivity extends AppCompatActivity implements AMapLocationListen
     protected void onResume() {
         super.onResume();
         //在activity执行onResume时执行mMapView.onResume ()，重新绘制加载地图
-        mMapView.onResume();
+        if (mMapView != null) {
+            mMapView.onResume();
+        }
     }
     @Override
     protected void onPause() {
         super.onPause();
         //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
-        mMapView.onPause();
+        if (mMapView != null) {
+            mMapView.onPause();
+        }
     }
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
-        mMapView.onSaveInstanceState(outState);
+        if (mMapView != null) {
+            mMapView.onSaveInstanceState(outState);
+        }
     }
 }
