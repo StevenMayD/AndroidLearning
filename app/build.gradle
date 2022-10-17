@@ -69,10 +69,16 @@ dependencies {
 //    implementation 'com.amap.api:3dmap:latest.integration' // gradle集成SDK的方式
     implementation(fileTree("libs"))  // 引入AAR包的依赖的方式
 
+    // 权限校验提醒（demo中用于位置权限校验 Permission.ACCESS_FINE_LOCATION , Permission.ACCESS_COARSE_LOCATION）
+    implementation 'com.yanzhenjie:permission:2.0.3'
+
+    // 工具类（demo中用于 自带样式的打印输入）
+    implementation 'com.blankj:utilcodex:1.28.4'
+
     // Glide图片加载库
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
 
     // 网络请求：OkHttp
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
 }

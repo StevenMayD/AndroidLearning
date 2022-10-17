@@ -32,6 +32,9 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.example.androidlearning.utils.GPSUtils;
+import com.example.androidlearning.utils.PermissionManager;
+import com.example.androidlearning.utils.PermissionStateListener;
+import com.yanzhenjie.permission.runtime.Permission;
 
 import java.io.IOException;
 import java.util.List;
@@ -60,15 +63,26 @@ public class MapActivity extends AppCompatActivity implements AMapLocationListen
         MapsInitializer.updatePrivacyShow(this, true, true);
 
         if (GPSUtils.isOPen(this.getApplicationContext())) {
-        /** 地图（通过高德api） **/
-        createMapViewByGaoDe(savedInstanceState);
+            PermissionManager.checkPermissions(theActivity, new PermissionStateListener() {
+                        @Override
+                        public void onGranted() {
+                            /** 地图（通过高德api） **/
+                            createMapViewByGaoDe(savedInstanceState);
 
-        /** 定位（通过高德api） **/
-        getLocationByGaoDe();
+                            /** 定位（通过高德api） **/
+                            getLocationByGaoDe();
 
-        /** 定位（通过安卓系统api） **/
-        getLocationBySystem();
+                            /** 定位（通过安卓系统api） **/
+                            getLocationBySystem();
+                        }
+
+                        @Override
+                        public void onDenied() {
+                            Log.d("PermissionManager.checkPermissions", "应用定位权限未开启");
+                        }
+                    }, Permission.ACCESS_FINE_LOCATION , Permission.ACCESS_COARSE_LOCATION);
         } else {
+            Log.d("GPSUtils.isOPen", "应用定位权限未开启");
             GPSUtils.openGPS(this);
         }
     }
