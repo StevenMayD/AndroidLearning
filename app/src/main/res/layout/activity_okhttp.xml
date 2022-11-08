@@ -23,15 +23,28 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="post同步请求"
-        android:onClick="postSync"
+        android:text="post同步请求(编码方式：键值对)"
+        android:onClick="postSync_form_urlencoded"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="post异步请求"
-        android:onClick="postAsync"
+        android:text="post异步请求(编码方式：键值对)"
+        android:onClick="postAsync_form_urlencoded"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="post文件上传请求(编码方式：form-data)"
+        android:onClick="postAsync_form_data"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="post_json数据提交(编码方式：application/json)"
+        android:onClick="postAsync_json"
+        />
 </LinearLayout>
