@@ -15,6 +15,7 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -185,5 +186,49 @@ public class OKhttpActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // 添加拦截器进行请求
+    public void request_addInterceptor(View view) {
+        new Thread() {
+            public void run() {
+                // OkHttpClient添加 前置拦截器 addInterceptor
+                OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+                    @NonNull
+                    @Override
+                    // addInterceptor 会在请求发给服务器之前 拦截请到求
+                    public Response intercept(@NonNull Chain chain) throws IOException {
+                        // 获取请求 并添加自定义配置
+                        Request request = chain.request().newBuilder()
+                                .addHeader("os", "android") // 统一添加header
+                                .addHeader("version", "1.0")
+                                .build();
+                        Log.d(TAG, "1.执行-addInterceptor:" + request.header("os"));
+                        Response response = chain.proceed(request);
+                        Log.d(TAG, "4.执行-addInterceptor:" + request.header("os"));
+                        return response;
+                    }
+                    // 添加后置拦截器 addNetworkInterceptor
+                }).addNetworkInterceptor(new Interceptor() {
+                    @NonNull
+                    @Override
+                    public Response intercept(@NonNull Chain chain) throws IOException {
+                        Log.d(TAG, "2.执行-addNetworkInterceptor:" + chain.request().header("os"));
+                        Response response = chain.proceed(chain.request());
+                        Log.d(TAG, "3.执行-addNetworkInterceptor:" + chain.request().header("os"));
+                        return response;
+                    }
+                }).build();
+
+                Request request = new Request.Builder().url("https://www.httpbin.org/get?a=1&b=1").build();
+                Call call =  httpClient.newCall(request);
+                try {
+                    Response response = call.execute();
+                    Log.d(TAG, "添加拦截器进行请求:" + response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 }
