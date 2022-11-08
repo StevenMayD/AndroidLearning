@@ -51,7 +51,21 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="添加拦截器进行的请求"
-        android:onClick="request_addInterceptor"
+        android:text="添加拦截器和缓存进行的请求"
+        android:onClick="request_addInterceptorAndCache"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加Cookie的请求"
+        android:onClick="request_addCookie"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用Cookie的请求"
+        android:onClick="request_useCookie"
         />
 </LinearLayout>

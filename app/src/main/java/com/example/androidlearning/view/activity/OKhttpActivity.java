@@ -11,10 +11,18 @@ import com.example.androidlearning.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -26,13 +34,32 @@ import okhttp3.Response;
 public class OKhttpActivity extends AppCompatActivity {
     private static final String TAG = "OKhttpActivity";
     private OkHttpClient okHttpClient; // 请求器
+    private OkHttpClient okHttpClientWithCookie; // 请求器(携带Cookie)
+    private Map<String, List<Cookie>> cookies = new HashMap<>(); // 声明Map类型的属性并初始化 用于内存中存储Cookie
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_okhttp);
 
-        okHttpClient = new OkHttpClient();
+        okHttpClient = new OkHttpClient(); //初始化属性
+        okHttpClientWithCookie = new OkHttpClient.Builder()
+                .cookieJar(new CookieJar() {
+                    @Override
+                    // list就是服务返回的Cookie集合
+                    public void saveFromResponse(@NonNull HttpUrl httpUrl, @NonNull List<Cookie> list) {
+                        // 以host为key，将Cookie保存在内存里，别的请求需要用时，取出来用即可 (比如 收藏、评论的功能，要求是登录的状态，可以将登录接口返回的Cookie，使用在收藏接口的请求时)
+                        cookies.put(httpUrl.host(), list);
+                    }
+
+                    @NonNull
+                    @Override
+                    public List<Cookie> loadForRequest(@NonNull HttpUrl httpUrl) {
+                        // 如果是请求 "玩万卓"的接口，就使用保存好的cookie 否则返回空数组
+                        List<Cookie> cookieList = cookies.get(httpUrl.host());
+                        return cookieList==null ? new ArrayList<>() : cookieList;
+                    }
+                }).build();
     }
     //   get同步请求
     public void getSync(View view) {
@@ -188,12 +215,16 @@ public class OKhttpActivity extends AppCompatActivity {
         });
     }
 
-    // 添加拦截器进行请求
-    public void request_addInterceptor(View view) {
+    // 添加构建者配置：拦截器和缓存
+    public void request_addInterceptorAndCache(View view) {
         new Thread() {
             public void run() {
-                // OkHttpClient添加 前置拦截器 addInterceptor
-                OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+                // OkHttpClient添加 构建者配置
+                OkHttpClient httpClient = new OkHttpClient.Builder()
+                        // 配置缓存（缓存文件路径，大小为1M, 满了后，会覆盖旧的数据）
+                        .cache(new Cache(new File("/path/cache"), 1024*1024))
+                        // 前置拦截器 addInterceptor
+                        .addInterceptor(new Interceptor() {
                     @NonNull
                     @Override
                     // addInterceptor 会在请求发给服务器之前 拦截请到求
@@ -225,6 +256,54 @@ public class OKhttpActivity extends AppCompatActivity {
                 try {
                     Response response = call.execute();
                     Log.d(TAG, "添加拦截器进行请求:" + response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    // 添加Cookie的请求
+    public void request_addCookie(View view) {
+        new Thread() {
+            public void run() {
+                /* 登录API
+                * https://www.wanandroid.com/user/login 方法：POST 参数： username，password
+                  登录后会在cookie中返回账号密码，只要在客户端做cookie持久化存储即可自动登录验证
+                * */
+                FormBody formBody = new FormBody.Builder()
+                        .add("username", "StevenMayD")
+                        .add("password", "DongBao-3037")
+                        .build();
+                Request request = new Request.Builder().url("https://www.wanandroid.com/user/login").post(formBody).build();
+
+                Call call =  okHttpClientWithCookie.newCall(request);
+                try {
+                    Response response = call.execute();
+                    Log.d(TAG, "添加Cookie的请求:" + response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    // 使用Cookie的请求
+    public void request_useCookie(View view) {
+        new Thread() {
+            public void run() {
+                /* 获取收藏列表API
+                https://www.wanandroid.com/lg/collect/list/0/json
+                方法：GET、参数： 页码：拼接在链接中，从0开始。
+                注：该接口支持传入 page_size 控制分页数量，取值为[1-40]，不传则使用默认值，一旦传入了 page_size，后续该接口分页都需要带上，否则会造成分页读取错误
+                */
+                Request request = new Request.Builder().url("https://www.wanandroid.com/lg/collect/list/0/json").build();
+                Call call =  okHttpClientWithCookie.newCall(request);
+                try {
+                    Response response = call.execute();
+                    Log.d(TAG, "使用Cookie的请求:" + response.body().string());
+                    // 没有使用Cookie的话， 响应报错:{"errorCode":-1001,"errorMsg":"请先登录！"}
+                    // 使用了带Cookie的okHttpClientWithCookie，则获取到了收藏列表
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
