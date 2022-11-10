@@ -3,21 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.androidlearning">
     <!-- 配置 地图SDK（包含其搜索功能）需要的基础权限 -->
-    <!--允许程序打开网络套接字-->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!--允许程序设置内置sd卡的写权限-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--允许程序设置内置sd卡的访问权限-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--允许程序获取网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--允许程序访问WiFi网络信息-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!--允许程序读写手机状态和身份-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!--允许程序访问精确的位置-->
+    <!-- 允许程序打开网络套接字 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序设置内置sd卡的写权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许程序设置内置sd卡的访问权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 允许程序获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许程序访问WiFi网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许程序读写手机状态和身份 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 允许程序访问精确的位置 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -31,9 +24,9 @@
         android:theme="@style/Theme.AndroidLearning"
         tools:targetApi="31">
         <activity
-            android:name=".view.activity.OKhttpActivity"
+            android:name=".view.activity.RetrofitActivity"
             android:exported="true"
-            android:label="@string/title_activity_okhttp"
+            android:label="@string/title_activity_retrofit"
             android:theme="@style/Theme.AndroidLearning.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +34,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- 地图 -->
+        <activity
+            android:name=".view.activity.OKhttpActivity"
+            android:exported="true"
+            android:label="@string/title_activity_okhttp"
+            android:theme="@style/Theme.AndroidLearning.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER_No" />
+            </intent-filter>
+        </activity> <!-- 地图 -->
         <activity
             android:name=".view.activity.MapActivity"
             android:exported="true"
@@ -51,8 +54,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
-        </activity>
-        <!-- 广播接收者 -->
+        </activity> <!-- 广播接收者 -->
         <activity
             android:name=".view.activity.ReceiverActivity"
             android:exported="true"
@@ -62,8 +64,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
-        </activity>
-        <!-- 服务组件 -->
+        </activity> <!-- 服务组件 -->
         <activity
             android:name=".view.activity.ServiceActivity"
             android:exported="true"
@@ -73,8 +74,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
-        </activity>
-        <!-- 仿微信主界面 -->
+        </activity> <!-- 仿微信主界面 -->
         <activity
             android:name=".view.activity.MockWechatActivity"
             android:exported="true"
@@ -86,8 +86,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
-        </activity>
-        <!-- 滚动视图ViewPager2界面 -->
+        </activity> <!-- 滚动视图ViewPager2界面 -->
         <activity
             android:name=".view.activity.ViewPager2Activity"
             android:exported="true"
@@ -97,8 +96,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
-        </activity>
-        <!-- Fragment的动态替换与管理 -->
+        </activity> <!-- Fragment的动态替换与管理 -->
         <activity
             android:name=".view.activity.FragmentTransactionActivity"
             android:exported="true"
@@ -138,23 +136,19 @@
                 <!-- 自定义的MyMainActivity为Launch，则原先的MainActivity不能再是LAUNCHER，否则桌面会出现两个app（MyMainActivity和AndroidLearning） -->
                 <category android:name="android.intent.category.LAUNCHER_No" />
             </intent-filter>
-        </activity>
-
-        <!-- 服务也是组件 必须在清单文件里注册 -->
-        <service android:name=".service.MyService" />
-
-        <!-- 第一步： 静态注册广播接收者 （在清单文件里注册 并且需要标记action） -->
+        </activity> <!-- 服务也是组件 必须在清单文件里注册 -->
+        <service android:name=".service.MyService" /> <!-- 第一步： 静态注册广播接收者 （在清单文件里注册 并且需要标记action） -->
         <receiver
             android:name=".receiver.StaticReceiver"
             android:exported="true">
+
             <!-- 过滤 -->
             <intent-filter>
+
                 <!-- 标记name 可以随便定义（这就是发送广播的标记） -->
                 <action android:name="com.learning.receiver_static_" />
             </intent-filter>
-        </receiver>
-
-        <!-- 设置高德Key -->
+        </receiver> <!-- 设置高德Key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="55daf6feb2aef302008fe56f23413ca1" />
