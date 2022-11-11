@@ -4,13 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".view.activity.RetrofitActivity">
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Retrofit的post请求(编码方式：键值对)"
+        android:text="Retrofit的post常规请求(编码方式：键值对)"
         android:onClick="postAsync_form_urlencoded"
         />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrofit的post @body注解请求(编码方式：form-body)"
+        android:onClick="postAsync_form_body"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrofit的post @Path注解请求"
+        android:onClick="postAsync_Path"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrofit的post @Headers注解请求"
+        android:onClick="postAsync_Headers"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrofit的post @Url注解请求"
+        android:onClick="postAsync_Url"
+        />
 </LinearLayout>
