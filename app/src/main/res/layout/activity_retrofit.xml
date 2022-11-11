@@ -56,4 +56,12 @@
         android:text="Retrofit的使用自动转换器converter-gson:"
         android:onClick="retrofit_converter_gson"
         />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrofit适配器的使用"
+        android:onClick="retrofit_adapter"
+        android:layout_marginTop="50dp"
+        />
 </LinearLayout>

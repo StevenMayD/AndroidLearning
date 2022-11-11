@@ -82,11 +82,14 @@ dependencies {
     // 网络请求：OkHttp
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
 
+    // 反序列化库：json字符串转字典
+    implementation 'com.google.code.gson:gson:2.8.9'
+
     // 网络请求：retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     // retrofit自带反序列化库
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-
-    // 反序列化库：json字符串转字典
-    implementation 'com.google.code.gson:gson:2.8.9'
+    // retrofit适配器(配合rxandroid使用，提供了很多android特有方法)
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 }

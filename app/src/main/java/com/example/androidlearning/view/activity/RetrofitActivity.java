@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidlearning.R;
@@ -12,14 +13,29 @@ import com.example.androidlearning.service.RetrofitHttpBinService;
 import com.example.androidlearning.service.WanAndroidService;
 import com.google.gson.Gson;
 
-import java.io.IOException;
+import org.reactivestreams.Publisher;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitActivity extends AppCompatActivity {
@@ -32,6 +48,11 @@ public class RetrofitActivity extends AppCompatActivity {
 
     private Retrofit wanAndroidRetrofitConverter; // Retrofit请求对象（配置转换器）
     private WanAndroidService wanAndroidServiceConverter; // Retrofit请求服务（直接返回转换对象BaseResponse）
+
+    private Retrofit retrofitAdapter; // retrofit适配器的使用
+    private WanAndroidService retrofitServiceAdapter;
+
+    private Map<String, List<Cookie>> cookies = new HashMap<>(); // 声明Map类型的属性并初始化 用于内存中存储Cookie
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +70,29 @@ public class RetrofitActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create()) // 添加转换器：因为依赖是 retrofit2:converter-gson，所以使用GsonConverterFactory转换器
                 .build(); // Retrofit请求对象 带转换器
         wanAndroidServiceConverter = wanAndroidRetrofitConverter.create(WanAndroidService.class);
+
+        // retrofit适配器的使用
+        retrofitAdapter = new Retrofit.Builder()
+                .baseUrl("https://www.wanandroid.com/")
+                .callFactory((okhttp3.Call.Factory) new OkHttpClient.Builder().cookieJar(new CookieJar() { // 添加自动保存cookie的OkHttpClient (由于 玩安卓示例中的嵌套请求 的关联是 通过cookie进行的)
+                    @Override
+                    public void saveFromResponse(@NonNull HttpUrl httpUrl, @NonNull List<Cookie> list) {
+                        // 以host为key，将Cookie保存在内存里，别的请求需要用时，取出来用即可 (比如 收藏、评论的功能，要求是登录的状态，可以将登录接口返回的Cookie，使用在收藏接口的请求时)
+                        cookies.put(httpUrl.host(), list);
+                    }
+
+                    @NonNull
+                    @Override
+                    public List<Cookie> loadForRequest(@NonNull HttpUrl httpUrl) {
+                        // 如果是请求 "玩安卓"的接口，就使用保存好的cookie 否则返回空数组
+                        List<Cookie> cookieList = cookies.get(httpUrl.host());
+                        return cookieList==null ? new ArrayList<>() : cookieList;
+                    }
+                }).build())
+                .addConverterFactory(GsonConverterFactory.create()) // 添加转换器
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // 添加适配器
+                .build();
+        retrofitServiceAdapter = retrofitAdapter.create(WanAndroidService.class);
     }
 
     // @Post注解请求
@@ -168,4 +212,25 @@ public class RetrofitActivity extends AppCompatActivity {
         }.start();
     }
 
+    // retrofit 适配器：完成优雅的嵌套请求
+    public void retrofit_adapter(View view) {
+        // 先登陆请求
+        retrofitServiceAdapter.login2("StevenMayD", "DongBao-3037")
+                .flatMap(new Function<BaseResponse, Publisher<ResponseBody>>() { // flatMap：用于根据login2请求的结果，生成一个新的Publisher（继续进行请求 获取收藏列表接口getArticle）
+                    @Override
+                    public Publisher<ResponseBody> apply(BaseResponse baseResponse) throws Throwable {
+                        // 再请求
+                        return retrofitServiceAdapter.getArticle(0);
+                    }
+                })
+                .observeOn(Schedulers.io()) // observeOn：切换到子线程 进行请求
+                .subscribeOn(AndroidSchedulers.mainThread()) // subscribeOn：观察回调 则切换到 安卓主线程中
+                .subscribe(new Consumer<ResponseBody>() { // subscribe：观察回调 在主线程中 执行 UI等操作
+                    @Override
+                    // 嵌套请求 最终拿到的是getArticle接口的返回类型ResponseBody
+                    public void accept(ResponseBody responseBody) throws Throwable {
+                        Log.d(TAG, "retrofit_adapter_适配器-retrofit2:adapter-rxjava3:" + responseBody.string());
+                    }
+                });
+    }
 }
