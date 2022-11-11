@@ -41,4 +41,19 @@
         android:text="Retrofit的post @Url注解请求"
         android:onClick="postAsync_Url"
         />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrofit的使用手动转换器Gson"
+        android:onClick="retrofit_converter"
+        android:layout_marginTop="50dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrofit的使用自动转换器converter-gson:"
+        android:onClick="retrofit_converter_gson"
+        />
 </LinearLayout>
