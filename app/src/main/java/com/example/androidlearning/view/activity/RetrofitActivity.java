@@ -1,6 +1,8 @@
 package com.example.androidlearning.view.activity;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 
@@ -15,7 +17,10 @@ import com.google.gson.Gson;
 
 import org.reactivestreams.Publisher;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +34,10 @@ import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -233,4 +241,114 @@ public class RetrofitActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    // retrofit 文件上传
+    public void retrofit_upload(View view) {
+        new Thread() {
+            public void run() {
+                try {
+                    // 获取待上传文件
+                    File file1 = new File("/storage/emulated/0/Pictures/1666838557454-185e93498-afdf-4325-b8fb-3ac8e5002dcf.jpeg");
+                    // 参数（一个参数name:参数名(由接口协定)；第二个参数fileName:文件名；第三个参数：文件(用RequestBody包裹起来)）
+                    MultipartBody.Part part = MultipartBody.Part.createFormData("file1", file1.getName(), RequestBody.create(file1, MediaType.parse("image/jpeg")));
+                    Call<ResponseBody> call = httpBinService.postUploadRequest(part);
+                    Log.d(TAG, "retrofit_upload文件上传" + call.execute().body().string());
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    // retrofit 文件下载（请求返回Call）
+    public void retrofit_download_call(View view) {
+        new Thread() {
+            public void run() {
+                String brand = Build.BRAND;
+                String fileName = "Img_" + System.currentTimeMillis() + ".jpg"; // Img_1668413887942.jpg
+                String filePath;
+                if (brand.equals("xiaomi")) {
+                    filePath = Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/" + fileName;
+                } else if (brand.equalsIgnoreCase("Huawei")) {
+                    filePath = Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/" + fileName; // /storage/emulated/0
+                } else {
+                    filePath = Environment.getExternalStorageDirectory().getPath() + "/DCIM/" + fileName;
+                }
+                File file = new File(filePath); // filePath=/storage/emulated/0/DCIM/Camera/Img_1668413887942.jpg
+
+                try {
+                    Response<ResponseBody> response = httpBinService.postDownloadRequest("https://oss.coolcollege.cn/1835480998511513600.jpg").execute();
+                    InputStream inputStream = response.body().byteStream(); // 响应的是下载资源 需要转换为byteStream(), 而不是string()了
+                    FileOutputStream fos = new FileOutputStream(file);
+                    // io操作-实现存储：不断地从InputStream中读，往FileOutputStream中写
+                    int len;
+                    byte[] buffer = new byte[4096];
+                    while ((len = inputStream.read(buffer)) != -1) {
+                        // 当读取长度为-1 表示读取完毕
+                        fos.write(buffer, 0, len);
+                    }
+                    // 存储完成后 关闭
+                    fos.close();
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d("RetrofitActivity", "retrofit_download_call:" + e.getMessage().toString());
+                }
+            }
+        }.start();
+    }
+
+    // retrofit 文件下载（请求返回Flowable）
+    public void retrofit_download_flowable(View view) {
+        new Thread() {
+            public void run() {
+                httpBinService.postDownloadRxJavaRequest("https://oss.coolcollege.cn/1835480998511513600.jpg").map(new Function<ResponseBody, File>() {
+                    @Override
+                    public File apply(ResponseBody responseBody) throws Throwable {
+                        String brand = Build.BRAND;
+                        String fileName = "Img_" + System.currentTimeMillis() + ".jpg"; // Img_1668413887942.jpg
+                        String filePath;
+                        if (brand.equals("xiaomi")) {
+                            filePath = Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/" + fileName;
+                        } else if (brand.equalsIgnoreCase("Huawei")) {
+                            filePath = Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/" + fileName; // /storage/emulated/0
+                        } else {
+                            filePath = Environment.getExternalStorageDirectory().getPath() + "/DCIM/" + fileName;
+                        }
+                        File file = new File(filePath); // filePath=/storage/emulated/0/DCIM/Camera/Img_1668413887942.jpg
+
+                        try {
+                            InputStream inputStream = responseBody.byteStream(); // 响应的是下载资源 需要转换为byteStream(), 而不是string()了
+                            FileOutputStream fos = new FileOutputStream(file);
+                            // io操作-实现存储：不断地从InputStream中读，往FileOutputStream中写
+                            int len;
+                            byte[] buffer = new byte[4096];
+                            while ((len = inputStream.read(buffer)) != -1) {
+                                // 当读取长度为-1 表示读取完毕
+                                fos.write(buffer, 0, len);
+                            }
+                            // 存储完成后 关闭
+                            fos.close();
+                            inputStream.close();
+                            return file;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Log.d("RetrofitActivity", "retrofit_download_call:" + e.getMessage().toString());
+                            return null;
+                        }
+                    }
+                }).subscribe(new Consumer<File>() {
+                    @Override
+                    public void accept(File file) throws Throwable {
+                        // TODO: 完成下载后的后续操作（比如下载完.apk后，继续安装.apk）
+                    }
+                });
+                while (true) {
+
+                }
+            }
+        }.start();
+    }
+
 }

@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:text="Retrofit的使用手动转换器Gson"
         android:onClick="retrofit_converter"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         />
 
     <Button
@@ -62,6 +62,29 @@
         android:layout_height="wrap_content"
         android:text="Retrofit适配器的使用"
         android:onClick="retrofit_adapter"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrofit文件上传"
+        android:onClick="retrofit_upload"
+        android:layout_marginTop="30dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrofit文件下载（返回Call类型）"
+        android:onClick="retrofit_download_call"
+        android:layout_marginTop="30dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrofit文件下载（返回Flowable类型）"
+        android:onClick="retrofit_download_flowable"
         />
 </LinearLayout>

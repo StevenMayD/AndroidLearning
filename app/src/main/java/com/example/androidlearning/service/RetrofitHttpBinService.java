@@ -1,5 +1,7 @@
 package com.example.androidlearning.service;
 
+import io.reactivex.rxjava3.core.Flowable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -9,9 +11,12 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
 // 网络请求中间层
@@ -60,4 +65,28 @@ public interface RetrofitHttpBinService {
     * */
     @POST
     Call<ResponseBody> postUrlRequest(@Url String url);
+
+    /* 文件上传
+    *  @Multipart注解：配合@Part注解的参数 进行文件上传
+    *  多个文件上传则 传参： (@Part MultipartBody.Part file, @Part MultipartBody.Part file2)
+    *  很多文件上传则 传参：(@PartMap MultipartBody.Part file)
+    * */
+    @POST("post")
+    @Multipart
+    Call<ResponseBody> postUploadRequest(@Part MultipartBody.Part file);
+
+    /* 文件下载
+     * 返回Call类型
+     * @Streaming注解：以流的形式获取文件数据（下载大的资源时，可避免出现内存溢出问题out of memory）
+     * */
+    @Streaming
+    @GET
+    Call<ResponseBody> postDownloadRequest(@Url String url);
+
+    /* 文件下载
+     * 使用RxJava 返回Flowable类型 可以进行适配器配置
+     * */
+    @Streaming
+    @GET
+    Flowable<ResponseBody> postDownloadRxJavaRequest(@Url String url);
 }
