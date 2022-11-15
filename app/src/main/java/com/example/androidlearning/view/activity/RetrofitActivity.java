@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidlearning.R;
 import com.example.androidlearning.bean.BaseResponse;
+import com.example.androidlearning.bean.Bean;
+import com.example.androidlearning.bean.Job;
 import com.example.androidlearning.service.RetrofitHttpBinService;
 import com.example.androidlearning.service.WanAndroidService;
 import com.google.gson.Gson;
@@ -101,6 +103,27 @@ public class RetrofitActivity extends AppCompatActivity {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // 添加适配器
                 .build();
         retrofitServiceAdapter = retrofitAdapter.create(WanAndroidService.class);
+
+        jsonAnalysis();
+    }
+
+    // json解析
+    public void jsonAnalysis() {
+        // Gson提供的gson对象
+        Gson gson = new Gson();
+
+        // java对象
+        Job job1 = new Job(001, "员工");
+        Bean user1 = new Bean("dsw", 7, job1);
+        // 序列化toJson：对象转json串
+        String userJson1 = gson.toJson(user1);
+        Log.d(TAG, "jsonAnalysis-序列化:" + userJson1); // {"age":7,"job":{"jobNum":1,"jobType":"员工"},"name":"dsw"}
+
+        // 对象json串
+        String userJson2 = "{\"age\":9,\"job\":{\"jobNum\":2,\"jobType\":\"员工\"},\"name\":\"lyy\"}";
+        // 反序列化fromJson：json串转对象
+        Bean user2 = gson.fromJson(userJson2, Bean.class);
+        Log.d(TAG, "jsonAnalysis-反序列化:" + user2.getName() + "-" + user2.getAge() + "-" + user2.getJob());
     }
 
     // @Post注解请求
