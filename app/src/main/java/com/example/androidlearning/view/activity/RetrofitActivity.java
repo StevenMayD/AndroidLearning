@@ -16,6 +16,7 @@ import com.example.androidlearning.bean.Job;
 import com.example.androidlearning.service.RetrofitHttpBinService;
 import com.example.androidlearning.service.WanAndroidService;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.reactivestreams.Publisher;
 
@@ -23,6 +24,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -106,9 +108,13 @@ public class RetrofitActivity extends AppCompatActivity {
 
         jsonAnalysis();
     }
-
     // json解析
     public void jsonAnalysis() {
+        javaObject();
+        jsonArrayAndList();
+    }
+    // java对象的解析
+    public void javaObject() {
         // Gson提供的gson对象
         Gson gson = new Gson();
 
@@ -124,6 +130,46 @@ public class RetrofitActivity extends AppCompatActivity {
         // 反序列化fromJson：json串转对象
         Bean user2 = gson.fromJson(userJson2, Bean.class);
         Log.d(TAG, "jsonAnalysis-反序列化:" + user2.getName() + "-" + user2.getAge() + "-" + user2.getJob());
+    }
+
+    // java数组和集合的解析
+    public void jsonArrayAndList() {
+        Job job1 = new Job(001, "员工");
+        Gson gson = new Gson();
+
+        // 数组（静态数组）的解析：同java对象的解析
+        Bean[] userArray1 = new Bean[3]; // 定义一个元素为Bean类型的数组
+        userArray1[0] = new Bean("dsw", 2, job1);
+        userArray1[1] = new Bean("lyy", 3, job1);
+
+        // 序列化toJson：数组转json串
+        String userArrayJson1 = gson.toJson(userArray1);
+        Log.d(TAG, "jsonArrayAndList-数组-序列化:" + userArrayJson1); // [{"age":2,"job":{"jobNum":1,"jobType":"员工"},"name":"dsw"},{"age":3,"job":{"jobNum":1,"jobType":"员工"},"name":"lyy"},null]
+
+        // 反序列化fromJson：json串转数组 (Bean[].class-元素为Bean的数组类)
+        Bean[] userArray2 = gson.fromJson(userArrayJson1, Bean[].class); // dsw-3-Job{jobNum=1, jobType='员工'}
+        Log.d(TAG, "jsonArrayAndList-数组-反序列化:" + userArray2[0].getName() + "-" + userArray2[1].getAge() + "-" + userArray2[0].getJob());
+
+
+
+        /* 集合（动态数组）的解析
+        * List集合类型对象需要注意，在反序列化时，因为Java是伪泛型，泛型擦除会导致无法反序列化为List<Bean>，需要使用TypeToken完成反序列化
+        * */
+        List<Bean> userList1 = new ArrayList<>();
+        userList1.add(new Bean("dsw", 22, job1));
+        userList1.add(new Bean("lyy", 33, job1));
+        userList1.add(null);
+
+        // 序列化toJson： 集合转json串
+        String userListJson1 = gson.toJson(userList1);
+        Log.d(TAG, "jsonArrayAndList-集合-序列化:" + userListJson1); // [{"age":22,"job":{"jobNum":1,"jobType":"员工"},"name":"dsw"},{"age":33,"job":{"jobNum":1,"jobType":"员工"},"name":"lyy"},null]
+
+        // 反序列化fromJson：json串转集合
+        Type type = new TypeToken<List<Bean>>() {
+        }.getType();
+        List<Bean> userList2 = gson.fromJson(userListJson1, type); // 不能用 gson.fromJson(userListJson1, List.class)
+        Log.d(TAG, "jsonArrayAndList-集合-反序列化:" + userList2.get(0).getName() + "-" + userList2.get(0).getAge() + "-" + userList2.get(0).getJob()); // dsw-22-Job{jobNum=1, jobType='员工'}
+
     }
 
     // @Post注解请求
