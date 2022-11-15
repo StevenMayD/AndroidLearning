@@ -178,7 +178,9 @@ public class RetrofitActivity extends AppCompatActivity {
     // java Map集合和Set集合的解析
     public void jsonMapAndSet() {
         Job job1 = new Job(001, "员工");
+        job1.setCls(1); // 这里给cls复制，但序列化出来的是 class属性名 而不是cls
         Gson gson = new Gson();
+//        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
         // Map集合
         Map<String, Bean> map1 = new HashMap<>();
@@ -186,9 +188,9 @@ public class RetrofitActivity extends AppCompatActivity {
         map1.put("2", new Bean("lyy", 333, job1));
         map1.put(null, null);
 
-        // 序列化
+        // 序列化：这里序列化出来的是 class属性名 而不是cls
         String mapJson = gson.toJson(map1);
-        Log.d(TAG, "jsonMapAndSet-Map集合-序列化:" + mapJson); // {"1":{"age":222,"job":{"jobNum":1,"jobType":"员工"},"name":"dsw"},"2":{"age":333,"job":{"jobNum":1,"jobType":"员工"},"name":"lyy"}}
+        Log.d(TAG, "jsonMapAndSet-Map集合-序列化:" + mapJson); // {"1":{"age":222,"job":{"class":1,"jobNum":1,"jobType":"员工"},"name":"dsw"},"2":{"age":333,"job":{"class":1,"jobNum":1,"jobType":"员工"},"name":"lyy"}}
         // 反序列化fromJson：json串转Map集合, 同样用到 TypeToken完成反序列化
         Type type = new TypeToken<Map<String, Bean>>() {
         }.getType();
