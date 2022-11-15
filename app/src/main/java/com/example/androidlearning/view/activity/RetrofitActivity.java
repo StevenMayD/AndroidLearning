@@ -27,8 +27,11 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Consumer;
@@ -112,6 +115,7 @@ public class RetrofitActivity extends AppCompatActivity {
     public void jsonAnalysis() {
         javaObject();
         jsonArrayAndList();
+        jsonMapAndSet();
     }
     // java对象的解析
     public void javaObject() {
@@ -132,7 +136,7 @@ public class RetrofitActivity extends AppCompatActivity {
         Log.d(TAG, "jsonAnalysis-反序列化:" + user2.getName() + "-" + user2.getAge() + "-" + user2.getJob());
     }
 
-    // java数组和集合的解析
+    // java 静态数组和list集合的解析
     public void jsonArrayAndList() {
         Job job1 = new Job(001, "员工");
         Gson gson = new Gson();
@@ -152,7 +156,7 @@ public class RetrofitActivity extends AppCompatActivity {
 
 
 
-        /* 集合（动态数组）的解析
+        /* List集合（动态数组）的解析
         * List集合类型对象需要注意，在反序列化时，因为Java是伪泛型，泛型擦除会导致无法反序列化为List<Bean>，需要使用TypeToken完成反序列化
         * */
         List<Bean> userList1 = new ArrayList<>();
@@ -170,6 +174,56 @@ public class RetrofitActivity extends AppCompatActivity {
         List<Bean> userList2 = gson.fromJson(userListJson1, type); // 不能用 gson.fromJson(userListJson1, List.class)
         Log.d(TAG, "jsonArrayAndList-集合-反序列化:" + userList2.get(0).getName() + "-" + userList2.get(0).getAge() + "-" + userList2.get(0).getJob()); // dsw-22-Job{jobNum=1, jobType='员工'}
 
+    }
+    // java Map集合和Set集合的解析
+    public void jsonMapAndSet() {
+        Job job1 = new Job(001, "员工");
+        Gson gson = new Gson();
+
+        // Map集合
+        Map<String, Bean> map1 = new HashMap<>();
+        map1.put("1", new Bean("dsw", 222, job1));
+        map1.put("2", new Bean("lyy", 333, job1));
+        map1.put(null, null);
+
+        // 序列化
+        String mapJson = gson.toJson(map1);
+        Log.d(TAG, "jsonMapAndSet-Map集合-序列化:" + mapJson); // {"1":{"age":222,"job":{"jobNum":1,"jobType":"员工"},"name":"dsw"},"2":{"age":333,"job":{"jobNum":1,"jobType":"员工"},"name":"lyy"}}
+        // 反序列化fromJson：json串转Map集合, 同样用到 TypeToken完成反序列化
+        Type type = new TypeToken<Map<String, Bean>>() {
+        }.getType();
+        Map<String, Bean> map2 = gson.fromJson(mapJson, type); // dsw-222-Job{jobNum=1, jobType='员工'}
+        Log.d(TAG, "jsonMapAndSet-Map集合-反序列化:" + map2.get("1").getName() + "-" + map2.get("1").getAge() + "-" + map2.get("1").getJob());
+
+
+        /* Set集合
+        *   如果HashSet类型，则完全使用反序列化为List，因为二者序列化后的json数据完全一致: List<Bean> set2 = gson.fromJson(setJson, type2);
+        *   否则 需要使用迭代器进行遍历 iterator().forEachRemaining();
+        * */
+        Set<Bean> set1 = new HashSet<>();
+        set1.add(new Bean("dsw", 222, job1));
+        set1.add(new Bean("lyy", 333, job1));
+//        set1.add(null);
+
+        // 序列化
+        String setJson = gson.toJson(set1);
+        Log.d(TAG, "jsonMapAndSet-Set集合-序列化:" + setJson); // [{"age":333,"job":{"jobNum":1,"jobType":"员工"},"name":"lyy"},{"age":222,"job":{"jobNum":1,"jobType":"员工"},"name":"dsw"}]
+
+        // 反序列化1：反序列化为List
+        Type type2 = new TypeToken<List<Bean>>() {
+        }.getType();
+        List<Bean> set2 = gson.fromJson(setJson, type2); // lyy-333-Job{jobNum=1, jobType='员工'}
+        Log.d(TAG, "jsonMapAndSet-Set集合-反序列化1:" + set2.get(0).getName() + "-" + set2.get(0).getAge() + "-" + set2.get(0).getJob());
+
+        // 反序列化2：反序列化为Set
+        Type type3 = new TypeToken<Set<Bean>>() {
+        }.getType();
+        Set<Bean> set3 = gson.fromJson(setJson, type3);
+        Iterator<Bean> iterator = set3.iterator();
+        while (iterator.hasNext()) {
+            Bean next = iterator.next();
+            Log.d(TAG, "jsonMapAndSet-Set集合-反序列化2:" + next);
+        }
     }
 
     // @Post注解请求

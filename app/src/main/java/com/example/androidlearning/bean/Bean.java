@@ -38,4 +38,14 @@ public class Bean {
         this.age = age;
         this.job = job;
     }
+
+    // 增加toString()方法，使可以直接打印 Bean对象
+    @Override
+    public String toString() {
+        return "Bean{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", job=" + job +
+                '}';
+    }
 }
