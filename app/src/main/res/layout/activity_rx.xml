@@ -16,11 +16,15 @@
         android:layout_height="50dp" />
 
     <Button
-        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="showImageAction"
         android:text="图片显示加载功能" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="action"
+        android:text="常用操作符" />
 
 </LinearLayout>

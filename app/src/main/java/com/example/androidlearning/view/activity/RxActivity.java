@@ -3,7 +3,11 @@ package com.example.androidlearning.view.activity;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -19,6 +23,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -55,10 +60,10 @@ public class RxActivity extends AppCompatActivity {
         // TODO: 第二步 将String传递下去
         // 起点("起点"将string类型的PATH流向"过程")
         Observable.just(PATH)
-                /* 过程(需求)：图片下载需求 (获取到起点的PATH,得到Bitmap，并将Bitmap流向"终点")
+                /* 过程(需求001)：图片下载需求 (获取到起点的PATH,得到Bitmap，并将Bitmap流向"终点")
                 * 异步请求服务器操作：需要在子线程中进行
                 * */
-                // TODO: 第三步 将String变成Bitmap
+                // TODO: 第三步 将String变成Bitmap（这里Function的参数，第一个为上一层String类型，第二个参数为Bitmap下一层使用的类型）
                 .map(new Function<String, Bitmap>() {
                     @Override
                     public Bitmap apply(String path) throws Exception {
@@ -80,6 +85,25 @@ public class RxActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         return null;
+                    }
+                })
+                // 添加过程(需求002)：图片加水印
+                .map(new Function<Bitmap, Bitmap>() {
+                    @Override
+                    public Bitmap apply(Bitmap bitmap) throws Exception {
+                        Paint paint = new Paint();
+                        paint.setColor(Color.RED); // 红色画笔
+                        paint.setTextSize(17);
+                        Bitmap shuiyinBitmap = drawTextToBitmap(bitmap, "哈哈,大家好", paint, 15,15);
+                        return shuiyinBitmap;
+                    }
+                })
+                // 增加过程（需求003）：日志记录
+                .map(new Function<Bitmap, Bitmap>() {
+                    @Override
+                    public Bitmap apply(Bitmap bitmap) throws Exception {
+                        Log.d(TAG, "什么时候下载了图片 apply: " + System.currentTimeMillis());
+                        return bitmap;
                     }
                 })
                 // 给上面过程的操作 分配异步子线程进行
@@ -122,5 +146,39 @@ public class RxActivity extends AppCompatActivity {
                             }
                         }
                 );
+    }
+    // 图片加水印 (原始图片bitmap，添加文字text，画笔paint，位置padding )
+    private final Bitmap drawTextToBitmap(Bitmap bitmap, String text, Paint paint, int paddingLeft, int paddingTop) {
+        Bitmap.Config bitmapConfig = bitmap.getConfig();
+
+        paint.setDither(true); // 获取更清晰的图像采样
+        paint.setFilterBitmap(true); // 过滤
+        if (bitmapConfig == null) {
+            bitmapConfig = Bitmap.Config.ARGB_8888;
+        }
+        bitmap = bitmap.copy(bitmapConfig, true);
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawText(text, paddingLeft, paddingTop, paint);
+        return bitmap;
+    }
+
+    // 常用操作符
+    public void action(View view) {
+        String[] strings = {"aa", "bb", "cc"};
+        
+        // 常规循环遍历 打印数组
+        for (String string : strings) {
+            Log.d(TAG, "常规循环遍历 打印数组: " + string);
+        }
+        
+        // Rx思维 打印数组: 围绕起、终点
+        Observable.fromArray(strings)
+                // 订阅：起点和终点
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        Log.d(TAG, "Rx思维 打印数组: " + s);
+                    }
+                });
     }
 }
