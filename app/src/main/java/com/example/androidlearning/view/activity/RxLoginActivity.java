@@ -1,8 +1,11 @@
 package com.example.androidlearning.view.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,5 +41,26 @@ public class RxLoginActivity extends AppCompatActivity {
                         Log.d("RxLoginActivity", "String类型 error：" + message);
                     }
                 });
+    }
+
+    /*
+        参数1： SP的名字
+        参数2： SP保存的时候用的模式（Context.MODE_APPEND-追加：每次保存都会追加；Context.MODE_PRIVATE-常规：每次保存都会更替）
+       public SharedPreferences getSharedPreferences(String name, int mode) {
+            throw new RuntimeException("Stub!");
+        }
+     */
+
+    // 通过SP来保存数据
+    public void saveDataBySP(View view) {
+        SharedPreferences sp_name1 = getSharedPreferences("SP_name1", Context.MODE_PRIVATE);
+        sp_name1.edit().putString("key1", "九阳神功").apply(); // apply才会写入到xml配置文件里面去
+    }
+
+    // 从SP获取数据
+    public void getDataBySP(View view) {
+        SharedPreferences sp_name1 = getSharedPreferences("SP_name1", Context.MODE_PRIVATE);
+        String value = sp_name1.getString("key1", "key_default"); // 假设key1 获取的值时空的，那么就会使用key_default对应的值
+        Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
     }
 }

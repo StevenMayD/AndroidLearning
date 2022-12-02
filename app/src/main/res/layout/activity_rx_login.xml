@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".view.activity.RxLoginActivity">
 
     <Button
@@ -12,4 +13,19 @@
         android:layout_height="wrap_content"
         android:text="登录"
         android:onClick="loginClick"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SP：保存数据"
+        android:onClick="saveDataBySP"
+        android:layout_marginTop="50dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SP：获取数据"
+        android:onClick="getDataBySP"
+        />
 </LinearLayout>
