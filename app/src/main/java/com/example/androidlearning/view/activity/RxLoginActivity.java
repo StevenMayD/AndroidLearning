@@ -3,8 +3,12 @@ package com.example.androidlearning.view.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +19,98 @@ import com.example.androidlearning.core.CustomObserver;
 import com.example.androidlearning.core.LoginEngine;
 
 public class RxLoginActivity extends AppCompatActivity {
+    SharedPreferences sp;
+    private EditText et_name;
+    private EditText et_pwd;
+    private CheckBox cb_remenberpwd;
+    private CheckBox cb_autologin;
+    private Button bt_login;
+    private Button bt_register;
+
+    // 全局静态变量
+    private static String Remenberpwd = "remenberpwd";
+    private static String Autologin = "autologin";
+    private static String Name = "name";
+    private static String Password = "pwd";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_login);
 
+        // 获取首选项 SP
+        sp = getSharedPreferences("config", Context.MODE_PRIVATE);
+
+        initView();
+
+        // 回显数据：第二次打开的时候，从sp获取数据，进行画面同步
+        boolean remenberpwd = sp.getBoolean(Remenberpwd, false); // 如果获取为空 默认值为false
+        boolean autologin = sp.getBoolean(Autologin, false);
+        if (remenberpwd) {
+            // 获取sp保存的name和pwd  并显示到EditText上
+            String name = sp.getString(Name, "");
+            String pwd = sp.getString(Password, "");
+            et_name.setText(name);
+            et_pwd.setText(pwd);
+            cb_remenberpwd.setChecked(true); // 勾选上
+        }
+        if (autologin) {
+            cb_autologin.setChecked(true);
+            // 模拟自动登录
+            Toast.makeText(this, "自动登录了", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+//    初始化
+    private void initView() {
+        // 找到控件
+        et_name = findViewById(R.id.et_name);
+        et_pwd = findViewById(R.id.et_pwd);
+        cb_remenberpwd = findViewById(R.id.cb_remenberpwd);
+        cb_autologin = findViewById(R.id.cb_autologin);
+        bt_login = findViewById(R.id.bt_login);
+        bt_register = findViewById(R.id.bt_register);
+
+        // 设置监听
+        MyOnClickListener listener = new MyOnClickListener();
+        bt_login.setOnClickListener(listener);
+        bt_register.setOnClickListener(listener);
+    }
+
+    // 定义一个内部类（自定义监听类）
+    private class MyOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.bt_register:
+                    break;
+                // 监听到点击按钮为login
+                case R.id.bt_login:
+                    String name = et_name.getText().toString().trim(); // 拿到用户名 并去空格
+                    String pwd = et_pwd.getText().toString().trim();
+                    if (TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd)) {
+                        Toast.makeText(RxLoginActivity.this, "用户名或密码为空", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //  如果记录了密码
+                        if (cb_remenberpwd.isChecked()) {
+                            // 将用户名和密码保存 同时勾选状态也保存
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString(Name, name); // 保存用户名
+                            editor.putString(Password, pwd); // 保存密码
+                            editor.putBoolean(Remenberpwd, true); // 保存记住密码的勾选状态
+                            editor.apply(); // 确认保存
+                        }
+
+                        // 自动登录 勾选
+                        if (cb_autologin.isChecked()) {
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putBoolean(Autologin, true); // 保存自动登录的勾选状态
+                            editor.apply(); // 确认保存
+                        }
+                    }
+                    break;
+            }
+        }
     }
 
     // 登录
