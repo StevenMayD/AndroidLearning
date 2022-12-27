@@ -1,7 +1,9 @@
 package com.example.androidlearning.view.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -165,6 +167,71 @@ public class RxLoginActivity extends AppCompatActivity {
         // 获取数据管理类的单例
         SQLiteOpenHelper sqLiteOpenHelper = MySqliteOpenHelper.getInstance(this);
         // databases数据库文件夹的创建 靠下面这句话(help.getReadableDatabase或者help.getWritableDatabase)
-        SQLiteDatabase readableDatabase = sqLiteOpenHelper.getWritableDatabase();
+        SQLiteDatabase db = sqLiteOpenHelper.getWritableDatabase();
+    }
+
+    // 查询数据表
+    public void query(View view) {
+        SQLiteOpenHelper sqLiteOpenHelper = MySqliteOpenHelper.getInstance(this);
+        SQLiteDatabase db = sqLiteOpenHelper.getReadableDatabase(); // 查询为 读的操作
+        if (db.isOpen()) { // 数据库打开成功
+            // query返回游标
+            Cursor cursor = db.rawQuery("select * from persons", null);
+            // 迭代游标 来遍历数据
+            while (cursor.moveToNext()) { // 获取到一条数据
+                // 偷懒的写法 获取数据（前提是知道表结构）
+//                int _id = cursor.getInt(0); // 获取主键字段的数据
+//                String name = cursor.getString(1); // 获取name字段的数据
+
+                // 规范的写法
+                int _id = cursor.getInt(cursor.getColumnIndex("_id")); // 获取主键字段的数据
+                String name = cursor.getString(cursor.getColumnIndex("name")); // 获取name字段的数据
+
+                Log.d("RxLoginActivity", "query: _id: " + _id + "  name: " + name);
+            }
+
+            // 一定要关闭游标 否则耗费性能 （数据库也要关闭（规范写法））
+            cursor.close();
+            db.close();
+        }
+    }
+
+    // 插入表数据
+    public void insert(View view) {
+        SQLiteOpenHelper sqLiteOpenHelper = MySqliteOpenHelper.getInstance(this);
+        SQLiteDatabase db = sqLiteOpenHelper.getWritableDatabase(); // 插入 为写操作
+
+        if (db.isOpen()) {
+            // 插入语句
+            String sql = "insert into persons(name) values('董帅文')";
+            db.execSQL(sql);
+        }
+        db.close();
+    }
+
+    // 修改表数据
+    public void update(View view) {
+        SQLiteOpenHelper sqLiteOpenHelper = MySqliteOpenHelper.getInstance(this);
+        SQLiteDatabase db = sqLiteOpenHelper.getWritableDatabase(); // 修改 为写操作
+
+        if (db.isOpen()) {
+            // 修改语句：将id为3的数据 name修改为李连杰
+            String sql = "update persons set name=? where _id=?";
+            db.execSQL(sql, new Object[]{"李连杰", 3});
+        }
+        db.close();
+    }
+
+    // 删除表数据
+    public void delete(View view) {
+        SQLiteOpenHelper sqLiteOpenHelper = MySqliteOpenHelper.getInstance(this);
+        SQLiteDatabase db = sqLiteOpenHelper.getWritableDatabase(); // 修改 为写操作
+
+        if (db.isOpen()) {
+            // 删除id为3的数据
+            String sql = "delete from persons where _id=?";
+            db.execSQL(sql, new Object[]{3});
+        }
+        db.close();
     }
 }
