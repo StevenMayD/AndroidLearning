@@ -2,6 +2,8 @@ package com.example.androidlearning.view.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,6 +19,7 @@ import com.example.androidlearning.R;
 import com.example.androidlearning.bean.RxLoginBean.SuccessBean;
 import com.example.androidlearning.core.CustomObserver;
 import com.example.androidlearning.core.LoginEngine;
+import com.example.androidlearning.tools.MySqliteOpenHelper;
 
 public class RxLoginActivity extends AppCompatActivity {
     SharedPreferences sp;
@@ -153,5 +156,15 @@ public class RxLoginActivity extends AppCompatActivity {
         SharedPreferences sp_name1 = getSharedPreferences("SP_name1", Context.MODE_PRIVATE);
         String value = sp_name1.getString("key1", "key_default"); // 假设key1 获取的值时空的，那么就会使用key_default对应的值
         Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
+    }
+
+
+
+    // 创建数据库文件
+    public void createDB(View view) {
+        // 获取数据管理类的单例
+        SQLiteOpenHelper sqLiteOpenHelper = MySqliteOpenHelper.getInstance(this);
+        // databases数据库文件夹的创建 靠下面这句话(help.getReadableDatabase或者help.getWritableDatabase)
+        SQLiteDatabase readableDatabase = sqLiteOpenHelper.getWritableDatabase();
     }
 }
