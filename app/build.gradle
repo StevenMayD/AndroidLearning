@@ -96,4 +96,10 @@ dependencies {
     // Rx响应式编程 依赖RxAndroid和RxJava
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.0.7'
+
+    // Room的依赖：封装化的数据库操作
+    def room_version = "2.2.0-alpha01"
+    implementation "androidx.room:room-runtime:$room_version" // room的依赖
+    annotationProcessor "androidx.room:room-compiler:$room_version" // room注解处理器（使得能识别注解 如@Entity @Dao @Database）
+
 }
