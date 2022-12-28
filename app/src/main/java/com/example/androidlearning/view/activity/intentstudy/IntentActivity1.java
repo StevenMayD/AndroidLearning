@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidlearning.R;
 
+/**
+ * Intent数据传递的学习：基础数据类型的传递、对象类型的传递
+ * */
 public class IntentActivity1 extends AppCompatActivity {
 
     @Override
@@ -41,4 +44,20 @@ public class IntentActivity1 extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+    /**
+     * 跳转：intent传递Serializable接口对象
+     * */
+    public void startAction3(View view) {
+        Intent intent = new Intent(this, IntentActivity2.class);
+
+        // 传递teacher对象
+        Teacher teacher = new Teacher();
+        teacher.id = 001;
+        teacher.name = "王老师";
+        teacher.age = 33;
+
+        intent.putExtra("teacher", teacher);
+        startActivity(intent);
+    }
+
 }
