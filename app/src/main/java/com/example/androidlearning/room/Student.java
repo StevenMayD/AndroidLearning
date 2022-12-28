@@ -15,9 +15,12 @@ public class Student {
     private String name;    // 数据表字段
     private int age;        // 数据表字段
 
-    // 构造函数
-    public Student(int id, String name, int age) {
-        this.id = id;
+    // 构造函数（因为Student不是一个简单的类 是一个表 不能写空构造函数）
+//    public Student() {
+//
+//    }
+    // id是主键自增，不需要外界传递
+    public Student(String name, int age) {
         this.name = name;
         this.age = age;
     }

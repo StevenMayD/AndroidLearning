@@ -17,7 +17,8 @@ public abstract class StudentDatabase extends RoomDatabase {
 
     // 单例模式 返回DB
     private static StudentDatabase INSTANCE;
-    static synchronized StudentDatabase getInstance(Context context) {
+    // 声明为public 供外界调用
+    public static synchronized StudentDatabase getInstance(Context context) {
         if (INSTANCE == null) {
             // 定义数据库名字为student_database
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), StudentDatabase.class, "student_database")

@@ -1,6 +1,7 @@
 package com.example.androidlearning.room;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -15,11 +16,13 @@ import java.util.List;
 public interface StudentDao {
     // 增
     @Insert
-    void insertStudents(Student ... students); // 插入数据为Student类型的变量students（...表示 可变参数）
+    void insertStudents(Student ... students); // 插入数据为Student类型的变量students（...表示 可变参数：调用时 可以传入很多参数 也可以传入一个参数）
 
     // 删：删除Student表的所有记录，删除所有数据 需要写语句（@Delete注解用于删除单条数据）
     @Query("DELETE FROM Student")
-    void deleteAllStudents();
+    void deleteAllStudents(); // 删除全部
+    @Delete
+    void deleteStudent(Student ... students); // 依据条件删除指定记录
 
     // 改
     @Update
