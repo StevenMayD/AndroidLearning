@@ -27,6 +27,9 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * RX思维的学习：把握住任务的起点和终点，中间过程环节可以随意增减，每一个过程，根据上一层的响应，来影响下一层的变化
+ * */
 public class RxActivity extends AppCompatActivity {
     private final String TAG = RxActivity.class.getSimpleName();
 

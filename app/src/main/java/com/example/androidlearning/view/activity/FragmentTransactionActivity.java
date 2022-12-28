@@ -15,6 +15,9 @@ import com.example.androidlearning.view.fragment.Fragment1;
 import com.example.androidlearning.view.fragment.Fragment2;
 import com.example.androidlearning.view.viewCallback.IFragmentCallback;
 
+/**
+ * FragmentTransaction的学习：Fragment的动态替换与管理
+ * */
 // 这里添加 遵循协议implements View.OnClickListener，button的点击事件则不需要再写回调的形式setOnClickListener(new OnClickListener)
 public class FragmentTransactionActivity extends AppCompatActivity implements View.OnClickListener {
     @Override

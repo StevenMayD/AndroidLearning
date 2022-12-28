@@ -15,6 +15,10 @@ import com.example.androidlearning.view.fragment.FragmentWeChat;
 
 import java.util.ArrayList;
 
+/**
+ * 模拟微信主页面：ViewPager2的运用
+ * */
+
 // tab需要监听点击事件
 public class MockWechatActivity extends AppCompatActivity implements View.OnClickListener {
     ViewPager2 viewPager;

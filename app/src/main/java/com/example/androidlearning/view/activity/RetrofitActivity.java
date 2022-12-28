@@ -53,6 +53,10 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
+/**
+ * Retrofit的学习：Retrofit进行网络请求
+ * */
 public class RetrofitActivity extends AppCompatActivity {
     private static final String TAG = "RetrofitActivity";
     private Retrofit retrofit; // Retrofit请求对象

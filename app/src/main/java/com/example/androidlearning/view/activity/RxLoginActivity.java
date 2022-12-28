@@ -23,6 +23,11 @@ import com.example.androidlearning.core.CustomObserver;
 import com.example.androidlearning.core.LoginEngine;
 import com.example.androidlearning.tools.MySqliteOpenHelper;
 
+/**
+ * RX思维实现登录逻辑
+ * SP的学习
+ * SQLite的学习
+ */
 public class RxLoginActivity extends AppCompatActivity {
     SharedPreferences sp;
     private EditText et_name;
@@ -205,8 +210,9 @@ public class RxLoginActivity extends AppCompatActivity {
             // 插入语句
             String sql = "insert into persons(name) values('董帅文')";
             db.execSQL(sql);
+
+            db.close();
         }
-        db.close();
     }
 
     // 修改表数据
@@ -218,8 +224,9 @@ public class RxLoginActivity extends AppCompatActivity {
             // 修改语句：将id为3的数据 name修改为李连杰
             String sql = "update persons set name=? where _id=?";
             db.execSQL(sql, new Object[]{"李连杰", 3});
+
+            db.close();
         }
-        db.close();
     }
 
     // 删除表数据
@@ -231,7 +238,8 @@ public class RxLoginActivity extends AppCompatActivity {
             // 删除id为3的数据
             String sql = "delete from persons where _id=?";
             db.execSQL(sql, new Object[]{3});
+
+            db.close();
         }
-        db.close();
     }
 }

@@ -1,16 +1,18 @@
 package com.example.androidlearning.view.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.androidlearning.R;
 
+/**
+ * MockWechatActivity的片段
+ * */
 public class FragmentWeChat extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private String mTextStr;

@@ -11,6 +11,10 @@ import com.example.androidlearning.R;
 import com.example.androidlearning.receiver.DynamicReceiver;
 import com.example.androidlearning.utils.ActionUtils;
 
+
+/**
+ * Receiver的学习：广播
+ * */
 public class ReceiverActivity extends AppCompatActivity {
     private static final String TAG = ReceiverActivity.class.getSimpleName();
 

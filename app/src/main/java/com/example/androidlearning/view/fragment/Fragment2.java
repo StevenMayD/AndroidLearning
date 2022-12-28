@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import com.example.androidlearning.R;
 import com.example.androidlearning.view.viewCallback.IFragmentCallback;
 
+/**
+ * FragmentTransactionActivity的片段
+ * */
 public class Fragment2 extends Fragment {
     private View root;
     private TextView textView;

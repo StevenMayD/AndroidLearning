@@ -1,10 +1,5 @@
 package com.example.androidlearning.view.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import androidx.viewpager.widget.ViewPager;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -25,16 +20,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.viewpager.widget.ViewPager;
 
-import com.amap.api.maps.model.Circle;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
-import com.bumptech.glide.load.resource.bitmap.Rotate;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
@@ -42,10 +32,15 @@ import com.example.androidlearning.R;
 import com.example.androidlearning.adapter.ListViewAdapter;
 import com.example.androidlearning.adapter.RecycleViewAdapter;
 import com.example.androidlearning.adapter.ViewPageAdapter;
-import com.example.androidlearning.adapter.ViewPager2Adapter;
 import com.example.androidlearning.bean.Bean;
 import com.example.androidlearning.tools.GlideApp;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 基础控件的学习：listview、recycleview、动画、Layout、viewpage、Glide基本使用
+ * */
 // 主页面逻辑：MainActivity.java
 public class MainActivity extends AppCompatActivity {
     // 数组data用于给ListView加载数据（数组中是Bean类型元素）

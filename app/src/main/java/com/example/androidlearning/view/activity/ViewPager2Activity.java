@@ -10,6 +10,9 @@ import com.example.androidlearning.adapter.ViewPager2Adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ViewPager2的学习：滚动页面
+ * */
 public class ViewPager2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

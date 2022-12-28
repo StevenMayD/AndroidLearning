@@ -31,6 +31,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+/**
+ * OkHttpClient的学习：OkHttpClient进行网络请求
+ * */
 public class OKhttpActivity extends AppCompatActivity {
     private static final String TAG = "OKhttpActivity";
     private OkHttpClient okHttpClient; // 请求器

@@ -40,6 +40,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Map地图与定位的学习：高德api地图与定位、安卓系统api定位
+ * */
 // 继承  AMapLocationListener（多继承 以逗号分隔）
 public class MapActivity extends AppCompatActivity implements AMapLocationListener {
     private MapView mMapView; // 地图控件（显示地图画面）

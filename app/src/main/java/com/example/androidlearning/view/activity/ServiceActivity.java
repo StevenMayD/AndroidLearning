@@ -1,17 +1,21 @@
 package com.example.androidlearning.view.activity;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.androidlearning.R;
 import com.example.androidlearning.service.MyService;
 
+/**
+ * Service的学习：服务
+ * */
 public class ServiceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
