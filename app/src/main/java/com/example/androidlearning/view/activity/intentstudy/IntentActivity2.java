@@ -25,12 +25,12 @@ public class IntentActivity2 extends AppCompatActivity {
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         char sex = intent.getCharExtra("sex", 'A');
-        if ((name != null)) {
+        if (name != null) {
             Toast.makeText(this, "name：" + name + " sex：" + sex, Toast.LENGTH_SHORT).show();
         }
 
         /**
-         * 接收对象数据：强转接收
+         * Serializable接收对象数据：强转接收
          * */
         Teacher teacher = (Teacher) intent.getSerializableExtra("teacher");
         if (teacher != null) {
@@ -40,5 +40,14 @@ public class IntentActivity2 extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
 
+        /**
+         * Parcelable接收对象数据：无需强转 因为getParcelableExtra返回值为泛型
+         * */
+        Worker worker = intent.getParcelableExtra("worker");
+        if (worker != null) {
+            Toast.makeText(this, " 姓名：" + worker.name
+                            + " 年龄：" + worker.age,
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }

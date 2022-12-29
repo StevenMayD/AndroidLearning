@@ -60,4 +60,16 @@ public class IntentActivity1 extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * 跳转：intent传递Parcelable接口对象
+     * */
+    public void startAction4(View view) {
+        Intent intent = new Intent(this, IntentActivity2.class);
+
+        // 传递teacher对象
+        Worker worker = new Worker("郑工人", 40);
+
+        intent.putExtra("worker", worker);
+        startActivity(intent);
+    }
 }

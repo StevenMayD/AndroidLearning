@@ -37,4 +37,15 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/button2" />
 
+  <Button
+      android:id="@+id/button4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:onClick="startAction4"
+      android:text="跳转：intent传递Parcelable接口对象"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.498"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/button3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
