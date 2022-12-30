@@ -30,7 +30,7 @@ public class MediaActivity extends AppCompatActivity {
 
     // 播放视频
     public void playVideo(View view) {
-
+        startActivity(new Intent(this, VideoPlayActivity.class));
     }
 
     // 播放音效
