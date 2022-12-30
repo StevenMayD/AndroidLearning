@@ -28,10 +28,16 @@ public class MediaActivity extends AppCompatActivity {
         startActivity(new Intent(this, MediaRecordActivity.class));
     }
 
-    // 播放视频
-    public void playVideo(View view) {
+    // MediaPlayer播放视频
+    public void mediaPlay(View view) {
         startActivity(new Intent(this, VideoPlayActivity.class));
     }
+
+    // VideoView播放视频
+    public void videoView(View view) {
+        startActivity(new Intent(this, VideoViewActivity.class));
+    }
+
 
     // 播放音效
     public void playAudio(View view) {

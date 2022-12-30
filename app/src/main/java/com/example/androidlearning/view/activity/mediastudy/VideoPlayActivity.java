@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * 多媒体技术的学习：播放视频界面
+ * 多媒体技术的学习：MediaPlayer播放视频界面
  * */
 public class VideoPlayActivity extends AppCompatActivity implements View.OnClickListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
     private TextureView textureView; // 视频采集预览界面
@@ -52,7 +52,8 @@ public class VideoPlayActivity extends AppCompatActivity implements View.OnClick
 
             mediaPlayer.setSurface(new Surface(textureView.getSurfaceTexture())); // 设置视频播放的画布（否则只有声音 没有画面）
             mediaPlayer.prepareAsync(); // 视频播放准备（异步准备）
-            mediaPlayer.getDuration(); // 获取视频时长
+            int duration = mediaPlayer.getDuration(); // 获取视频时长
+            int currentPosition = mediaPlayer.getCurrentPosition(); // 当前播放时间
             mediaPlayer.getVideoWidth(); // 获取视频尺寸
         } else {
             btnOpt.setText("开始播放");
