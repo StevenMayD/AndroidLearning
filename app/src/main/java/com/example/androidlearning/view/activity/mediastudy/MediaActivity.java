@@ -41,6 +41,6 @@ public class MediaActivity extends AppCompatActivity {
 
     // 播放音效
     public void playAudio(View view) {
-
+        startActivity(new Intent(this, SoundPoolActivity.class));
     }
 }
