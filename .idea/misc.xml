@@ -5,11 +5,15 @@
       <map>
         <entry key="../../../../../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/frame.xml" value="0.1435" />
+        <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2985" />
+        <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2985" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.134" />
+        <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.2985" />
         <entry key="app/src/main/res/drawable/tab_address_book.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/tab_find.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/tab_mine.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/tab_wechat.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_bottom_navigation.xml" value="0.16844805472424113" />
         <entry key="app/src/main/res/layout/activity_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_fragment_2.xml" value="0.535681186283596" />
         <entry key="app/src/main/res/layout/activity_fragment_transaction.xml" value="0.34098360655737703" />
@@ -28,6 +32,8 @@
         <entry key="app/src/main/res/layout/activity_viewpage.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_1.xml" value="0.10187988281249999" />
         <entry key="app/src/main/res/layout/fragment_2.xml" value="0.128125" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1675929884566054" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1675929884566054" />
         <entry key="app/src/main/res/layout/fragment_we_chat.xml" value="0.15155440414507773" />
         <entry key="app/src/main/res/layout/framebyframe_animation.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_view_pager2_item.xml" value="0.22" />
@@ -40,6 +46,7 @@
         <entry key="app/src/main/res/layout/viewpage_layout1.xml" value="0.1" />
         <entry key="app/src/main/res/layout/viewpage_layout2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/viewpage_layout3.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1675929884566054" />
       </map>
     </option>
   </component>
