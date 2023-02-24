@@ -51,11 +51,13 @@ public class Fragment2 extends Fragment {
                 // 更新UI
                 textView.setText("是的，我很好，你呢2？");
                 // 接口方式，fragment向activity传数据：类似iOS代理传值
-                fragmentCallback.sendMsgToActivity("你好，这是来自fragment的信息");
-                // 接口方式，fragment向activity主动获取数据：类似iOS代理传值
-                String msg = fragmentCallback.getMsgFromActivity(", hello");
-                // 由于fragment没有上下文场景，需要.getContext()获取上下文
-                Toast.makeText(Fragment2.this.getContext(), msg, Toast.LENGTH_SHORT).show();
+                if (fragmentCallback != null) {
+                    fragmentCallback.sendMsgToActivity("你好，这是来自fragment的信息");
+                    // 接口方式，fragment向activity主动获取数据：类似iOS代理传值
+                    String msg = fragmentCallback.getMsgFromActivity(", hello");
+                    // 由于fragment没有上下文场景，需要.getContext()获取上下文
+                    Toast.makeText(Fragment2.this.getContext(), msg, Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return root;

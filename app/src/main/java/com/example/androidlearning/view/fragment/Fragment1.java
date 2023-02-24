@@ -37,8 +37,10 @@ public class Fragment1 extends Fragment {
         Log.d("fragment生命周期", "onCreate: ");
 
         Bundle bundle = this.getArguments(); // 这里getArguments：获取的就是activity传入的argument
-        String string = bundle.getString("message");
-        Log.d("activity给fragment传参", "onCreate: " + string); // Log.d打印debug日志
+        if (bundle != null) {
+            String string = bundle.getString("message");
+            Log.d("activity给fragment传参", "onCreate: " + string); // Log.d打印debug日志
+        }
     }
 
     @Override
