@@ -10,6 +10,9 @@
     <!--  1、宿主activity添加fragment控件；
           2、将fragment控件绑定到自定义的view中的Fragment1类；
      且添加fragment控件必须加id，否则运行崩溃(这里fragment的id是必须有的，不同于其他控件的id只是为了标识获取)
+
+          注意静态加载确定的 fragment用 <fragment>标签
+          属性必须有 layout和name，就是那个确定fragment的类和布局xml文件
     -->
     <fragment
         android:name="com.example.androidlearning.view.fragment.Fragment1"

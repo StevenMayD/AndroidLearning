@@ -22,6 +22,9 @@
 
     <!--  添加FrameLayout控件 可在代码中动态指定和修改切换fragment
             而不是添加fragment控件 指定静态固定的fragment
+
+           注意动态加载不确定的 fragment用 <FrameLayout>标签
+          属性必须有 id，用于在.java中找到Framelayout，给它进行切换
     -->
     <FrameLayout
         android:id="@+id/framelayout"
